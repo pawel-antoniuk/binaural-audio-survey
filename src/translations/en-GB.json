@@ -1,0 +1,13 @@
+{
+  "introduction": {
+    "welcome": "Welcome",
+    "description": "This website contains a listening test which takes about 10 minutes to complete. During the test you will be asked to listen to 20 short music recordings and to indicate the direction where an ensemble of musicians is located. It requires using headphones.",
+    "research": "It's part of the research into perception of 3D audio carried out at <1>Bialystok University of Technology</1>. The tests are coordinated by Dr S. K. Zielinski (email: <3>s.zielinski@pb.edu.pl</3>).",
+    "universityLink": "https://pb.edu.pl/en/",
+    "dataCollection": "For the research purposes, we gather anonymous data, including information regarding listeners' age, background, and model of headphones used. We also use cookies for session management.",
+    "consent": "I hereby grant my consent to participate in the listening test and agree to <1>terms and cookie policy</1>.",
+    "policyLinkText": "terms and cookie policy",
+    "consentError": "Please accept the terms and cookie policy to continue",
+    "logoAlt": "logo"
+  }
+}

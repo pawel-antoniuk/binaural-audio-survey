@@ -1,0 +1,167 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.title {
+  text-align: center;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 1rem;
+}
+
+.formGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.fullWidth {
+  grid-template-columns: 1fr;
+}
+
+.question {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+.fieldError {
+  color: #ff4d4f;
+  font-size: 0.875rem;
+  margin-left: 0.5rem;
+}
+
+.formError {
+  color: #ff4d4f;
+  background-color: #fff1f0;
+  border: 1px solid #ff4d4f;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.inputError {
+  border-color: #ff4d4f !important;
+  background-color: #fff1f0 !important;
+}
+
+.hint {
+  font-size: 0.875rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
+.answer {
+  width: 100%;
+}
+
+.select {
+  width: 100%;
+  padding: 0 2.5rem 0 0.75rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  font-size: 1rem;
+  height: 40px;
+  background-color: white;
+  color: #333;
+  line-height: 1.5;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0.5rem;
+}
+
+.radioGroup.inputError {
+  border: 1px solid #ff4d4f;
+  border-radius: 4px;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.radioInput {
+  margin: 0;
+  cursor: pointer;
+}
+
+.textareaWrapper {
+  grid-column: 1 / -1;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 0.75rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.textInput {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  font-size: 1rem;
+  height: 40px;
+  background-color: white;
+  color: #333;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  background-color: #1890ff;
+  color: white;
+}
+
+.buttonOutline {
+  background-color: white;
+  border: 1px solid #d9d9d9;
+  color: #333;
+}
+
+.buttonDisabled {
+  background-color: #d9d9d9 !important;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.buttonDisabled:hover {
+  background-color: #d9d9d9 !important;
+}

@@ -1,0 +1,61 @@
+.button {
+    min-width: 40px;
+    min-height: 40px;
+    border: none;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    position: relative;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s;
+    outline: none;
+    background: var(--primary-color);
+    color: #fff;
+    gap: 8px;
+}
+
+.button.withText {
+    padding: 0 20px;
+}
+
+.button:hover {
+  background-color: #222;
+}
+
+.button:active {
+  transform: scale(0.95);
+  background-color: #000;
+}
+
+.iconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: max-content;
+}
+
+.text {
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.caption {
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+

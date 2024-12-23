@@ -1,0 +1,40 @@
+.container {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
+.checkbox {
+    cursor: pointer;
+    margin-top: 5px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d1d5db;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    background-color: white;
+    vertical-align: -4px;
+    /* Aligns checkbox with text baseline */
+}
+
+.checkbox:hover:not(.disabled) {
+    border-color: #60a5fa;
+}
+
+.checked {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.checkIcon {
+    color: white;
+}

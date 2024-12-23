@@ -1,0 +1,80 @@
+.loadingContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.loadingContainer.enter {
+  opacity: 1;
+  visibility: visible;
+}
+
+.loadingContainer.exit {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  transform: translateY(20px);
+  transition: transform 0.3s ease-out;
+}
+
+.loadingContainer.enter .content {
+  transform: translateY(0);
+}
+
+.loadingContainer.exit .content {
+  transform: translateY(20px);
+}
+
+.loadingSpinner {
+  display: flex;
+  gap: 8px;
+}
+
+.spinnerCircle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #3b82f6;
+  animation: bounce 0.8s infinite ease-in-out;
+}
+
+.spinnerCircle:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.spinnerCircle:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1);
+  }
+}
+
+.loadingLabel {
+  color: inherit;
+  font-size: 14px;
+}

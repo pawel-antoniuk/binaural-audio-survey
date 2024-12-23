@@ -1,0 +1,56 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.primary {
+  background-color: #027bff;
+  color: white;
+  border: 1px solid #027bff;
+}
+
+.button.primary:hover {
+  background-color: #005ec2;
+}
+
+.button:hover {
+  background-color: #eee;
+}
+
+.button:not(.disabled):active {
+  transform: scale(0.95);
+  background-color: #ddd;
+}
+
+.button.primary:not(.disabled):active {
+  background-color: #004a99;
+}
+
+.button.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.buttonIcon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Optional: Add these classes if you want to control icon positioning */
+.startIcon {
+  margin-right: 4px;
+}
+
+.endIcon {
+  margin-left: 4px;
+}

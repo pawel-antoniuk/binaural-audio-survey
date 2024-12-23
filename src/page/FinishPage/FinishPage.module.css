@@ -1,0 +1,113 @@
+/* FinishPage.module.css */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+  gap: 20px;
+}
+
+.title {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.description {
+  line-height: 1.8rem;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  text-align: justify;
+}
+
+.textArea {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.textArea:focus {
+  outline: none;
+  border-color: #666;
+}
+
+.submitButton {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.submitButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.confirmation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 12px 16px;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 4px;
+  color: #155724;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #155724;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.closeButton:hover {
+  color: #0f3d19;
+}
+
+.credits {
+  line-height: 1.8rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.creditsLink {
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+.creditsLink:hover {
+  color: #0056b3;
+}
+
+@media (max-width: 600px) {
+  .container {
+      padding: 15px;
+  }
+  
+  .description {
+      font-size: 1rem;
+      line-height: 1.6rem;
+  }
+}
