@@ -1,5 +1,5 @@
 import React from "react";
-import Survey from "../SurveyPage/SurveyPage";
+import SurveyPage from "../SurveyPage/SurveyPage";
 import Tour from "../../components/Tour/Tour";
 
 type TourPageProps = {
@@ -10,7 +10,7 @@ const TourPage: React.FC<TourPageProps> = ({ onEnd }) => {
   return (
     <div>
       <Tour onEnd={onEnd} />
-      <Survey
+      <SurveyPage
         onComment={() => { }}
         onConfirm={() => { }}
         onFinish={() => { }}

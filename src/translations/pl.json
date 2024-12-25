@@ -1,8 +1,183 @@
-
 {
-  "common": {
-    "welcome": "Witamy",
-    "switchLanguage": "Przełącz na angielski",
-    "description": "To jest przykładowa aplikacja"
+  "introduction": {
+    "welcome": "Witaj",
+    "description": "Ta strona zawiera test odsłuchowy, który trwa około 10 minut. Podczas testu zostaniesz poproszony o wysłuchanie 20 krótkich nagrań muzycznych i wskazanie kierunku, w którym znajduje się zespół muzyków. Test wymaga użycia słuchawek.",
+    "research": "Jest to część badań nad percepcją dźwięku 3D prowadzonych na <1>Politechnice Białostockiej</1>. Testy są koordynowane przez dr S. K. Zielińskiego (email: <3>s.zielinski@pb.edu.pl</3>).",
+    "universityLink": "https://pb.edu.pl/",
+    "dataCollection": "Do celów badawczych zbieramy anonimowe dane, w tym informacje dotyczące wieku słuchaczy, ich doświadczenia oraz model używanych słuchawek. Używamy również plików cookie do zarządzania sesją.",
+    "consent": "Wyrażam zgodę na udział w teście odsłuchowym oraz akceptuję <1>warunki i politykę plików cookie</1>.",
+    "policyLinkText": "warunki i politykę plików cookie",
+    "consentError": "Proszę zaakceptować warunki i politykę plików cookie, aby kontynuować",
+    "logoAlt": "logo",
+    "start": "Rozpocznij test"
+  },
+  "questionnaire": {
+    "title": "Najpierw musimy zadać Ci kilka pytań",
+    "ageRanges": {
+      "under18": "Poniżej 18",
+      "18-24": "18-24",
+      "25-34": "25-34",
+      "35-44": "35-44",
+      "45-54": "45-54",
+      "above54": "Powyżej 54"
+    },
+    "fields": {
+      "age": "Wiek",
+      "hearingDifficulties": "Trudności ze słuchem",
+      "listeningTest": "Udział w teście odsłuchowym"
+    },
+    "questions": {
+      "age": "Ile masz lat?",
+      "hearing": "Czy masz problemy ze słuchem?",
+      "listeningTest": "Czy kiedykolwiek brałeś/aś udział w teście odsłuchowym?",
+      "headphones": "Jaka jest marka i model Twoich słuchawek?",
+      "identifier": "Identyfikator (opcjonalnie)"
+    },
+    "answers": {
+      "yes": "Tak",
+      "no": "Nie"
+    },
+    "placeholders": {
+      "selectAge": "Proszę wybrać",
+      "typeHere": "Wpisz tutaj",
+      "identifier": "Wprowadź identyfikator (opcjonalnie)"
+    },
+    "hints": {
+      "identifier1": "Utwórz unikalny identyfikator, aby później móc sprawdzić swoje wyniki.",
+      "identifier2": "Proszę nie używać danych osobowych, takich jak prawdziwe imię i nazwisko."
+    },
+    "errors": {
+      "required": "Wymagane",
+      "missingFields": "Brakujące wymagane pola",
+      "fillRequired": "Proszę wypełnić wszystkie wymagane pola: {{fields}}"
+    },
+    "navigation": {
+      "previous": "Poprzedni",
+      "next": "Następny"
+    }
+  },
+  "headphoneTest": {
+    "title": "Teraz załóż słuchawki...",
+    "instructions": {
+      "main": "To badanie sprawdza, jak ludzie postrzegają pozycję i szerokość zespołów muzycznych w nagraniach <1>binauralnych</1>. Proszę założyć słuchawki i użyć przycisków poniżej do odtworzenia klipów audio.",
+      "setup": "Upewnij się, że wszystkie niestandardowe ustawienia korektora, dźwięku przestrzennego lub funkcje ulepszania dźwięku są wyłączone. Ustaw głośność na komfortowym poziomie i upewnij się, że słuchawki działają prawidłowo i są właściwie założone.",
+      "reminder": "Proszę nie zdejmować słuchawek podczas wszystkich testów. W każdej chwili możesz dostosować głośność tak, aby klipy były odtwarzane na komfortowym poziomie."
+    },
+    "channels": {
+      "left": "lewy",
+      "right": "prawy",
+      "leftChannel": "Lewy kanał",
+      "rightChannel": "Prawy kanał"
+    },
+    "buttons": {
+      "play": "Odtwórz",
+      "pause": "Pauza",
+      "ariaLabel": "{{action}} {{channel}} kanał"
+    },
+    "navigation": {
+      "previous": "Poprzedni",
+      "next": "Następny"
+    },
+    "alert": "Jeśli napotkasz problemy z odtwarzaniem dźwięku, sprawdź ustawienia audio na swoim urządzeniu i odśwież tę stronę.",
+    "errors": {
+      "audioPlayback": "Błąd odtwarzania dźwięku:"
+    }
+  },
+  "tour": {
+    "welcome": {
+      "title": "Witaj!",
+      "content": "Wysłuchasz 20 krótkich nagrań audio, z których każde prezentuje różne pozycje źródeł dźwięku. Test nie ma limitu czasu i zajmie około 10 minut."
+    },
+    "playPause": {
+      "title": "Przycisk Odtwórz/Pauza",
+      "autoLoop": "Nagranie zapętla się automatycznie podczas każdego kroku testu.",
+      "pauseResume": "Możesz wstrzymać i wznowić odtwarzanie za pomocą tego przycisku.",
+      "spaceKey": "Możesz również wstrzymać i wznowić używając klawisza <1/> (Spacja)."
+    },
+    "boundaries": {
+      "title": "Zaznaczanie granic",
+      "content": "Twoim zadaniem jest zidentyfikowanie przestrzennych granic zespołu muzycznego. Użyj znaczników, aby wskazać skrajne lewe i prawe punkty, w których postrzegasz lokalizacje źródeł dźwięku w zespole."
+    },
+    "markingGuide": {
+      "title": "Zaznaczanie granic",
+      "content": "Zaznacz, gdzie postrzegasz zespół muzyczny w nagraniu, ustawiając lewy znacznik tam, gdzie zaczynasz go słyszeć, a prawy znacznik tam, gdzie się kończy.",
+      "imageAlt": "Przewodnik po zaznaczaniu granic"
+    },
+    "confirm": {
+      "title": "Przycisk potwierdzenia",
+      "content": "Potwierdź swoją odpowiedź, klikając ten przycisk. Możesz go użyć tylko po wysłuchaniu nagrania. <1>Nie możesz zmienić swojej odpowiedzi po potwierdzeniu.</1>"
+    },
+    "comment": {
+      "title": "Przycisk komentarza",
+      "content": "Użyj tego przycisku, aby podzielić się opinią na temat tego, co widzisz lub słyszysz. Możesz również zostawić opinię po zakończeniu testu."
+    },
+    "tryIt": {
+      "title": "Wypróbuj sam",
+      "content": "Poświęć chwilę na eksplorację i przetestowanie interfejsu. Poklikaj i upewnij się, że wszystko działa zgodnie z oczekiwaniami. Gdy skończysz testowanie, kliknij przycisk Zakończ, aby zakończyć przewodnik."
+    },
+    "navigation": {
+      "back": "Wstecz",
+      "close": "Zamknij",
+      "last": "Zakończ",
+      "next": "Dalej",
+      "nextWithProgress": "Dalej (Krok {step} z {steps})",
+      "open": "Otwórz okno dialogowe",
+      "skip": "Pomiń"
+    }
+  },
+  "preparePage": {
+    "title": "Czy jesteś gotowy?",
+    "description": "Za chwilę rozpoczniesz właściwe badanie. Jeśli potrzebujesz ponownie przejrzeć przewodnik lub nie czujesz się pewnie, możesz wrócić. Po kliknięciu \"Tak, jestem gotowy\", badanie się rozpocznie.",
+    "buttons": {
+      "return": "Nie, wróć do przewodnika",
+      "start": "Tak, jestem gotowy"
+    }
+  },
+  "survey": {
+    "loading": {
+      "questions": "Ładowanie pytań...",
+      "recordings": "Ładowanie nagrań..."
+    }
+  },
+  "commentDialog": {
+    "title": "Zostaw komentarz",
+    "description": "Podziel się swoimi przemyśleniami na temat tego, co widzisz lub słyszysz.",
+    "placeholder": "Wpisz swój komentarz tutaj...",
+    "thankYou": "Dziękujemy za opinię! 🎉",
+    "close": "Zamknij",
+    "buttons": {
+      "cancel": "Anuluj",
+      "submit": "Wyślij"
+    }
+  },
+  "policy": {
+    "disclaimer": "Test został przygotowany zgodnie z najlepszymi praktykami akademickimi. Odpowiedzialność za kontrolowanie głośności odtwarzania na bezpiecznym i komfortowym poziomie spoczywa na uczestnikach. Nie ponosimy odpowiedzialności za jakiekolwiek uszkodzenia lub utratę słuchu powstałe w wyniku testu.",
+    "dataCollection": "Zbieramy informacje, w tym adresy IP uczestników i nazwy ich systemów operacyjnych. Informacje te są wykorzystywane do wykrywania fałszywych odpowiedzi. Pliki cookie są używane wyłącznie do zarządzania sesją w celu wykrycia momentu rozpoczęcia lub zakończenia testu.",
+    "privacy": "Wszystkie dane zebrane podczas testu będą przetwarzane anonimowo. Są zbierane wyłącznie do celów badań akademickich i nie będą przekazywane osobom trzecim.",
+    "buttons": {
+      "return": "Powrót"
+    }
+  },
+  "finishPage": {
+    "title": "Dziękujemy!",
+    "subtitle": "Ukończyłeś test.",
+    "description": "Mamy nadzieję, że test Ci się podobał. Prosimy o pozostawienie swojej opinii w polu poniżej. Docenimy Twój wysiłek.",
+    "confirmation": {
+      "success": "Wiadomość została wysłana pomyślnie!",
+      "closeAriaLabel": "Zamknij"
+    },
+    "comment": {
+      "placeholder": "Wpisz swoją wiadomość tutaj..."
+    },
+    "buttons": {
+      "submit": "Wyślij wiadomość"
+    },
+    "credits": "<0>Autorzy</0>: aby zobaczyć listę autorów, <3>kliknij tutaj</3>"
+  },
+  "credits": {
+    "title": "Autorzy",
+    "buttons": {
+      "back": "Powrót"
+    }
   }
 }

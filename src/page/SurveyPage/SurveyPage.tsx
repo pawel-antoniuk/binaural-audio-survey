@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import styles from './SurveyPage.module.css';
 import RangeSurvey from "../../components/RangeSurvey/RangeSurvey";
 import { useQuestions } from "../../hooks/question.hook";
@@ -15,6 +16,7 @@ type Props = {
 };
 
 const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish }) => {
+  const { t } = useTranslation();
   const [currentRecordingIndex, setCurrentRecordingIndex] = useState<number>(0);
   const [numberOfRecordings, setNumberOfRecordings] = useState<number>(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -49,7 +51,6 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish }) => {
     stop
   } = useAudioPreloader(getAudioUrls);
 
-  // Combined loading state that checks both audio loading and questions availability
   const isLoading = isAudioLoading || !questions || questions.length === 0;
 
   useEffect(() => {
@@ -86,7 +87,13 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish }) => {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.code === "Space") {
+      const target = event.target as HTMLElement;
+      const isEditingText = target.isContentEditable ||
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.tagName === 'SELECT';
+
+      if (event.code === "Space" && !isEditingText) {
         event.preventDefault();
         handlePlayToggle();
       }
@@ -96,10 +103,17 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish }) => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isPlaying, play, pause, currentRecordingIndex]);
 
+  const getLoadingMessage = () => {
+    if (!questions || questions.length === 0) {
+      return t('survey.loading.questions');
+    }
+    return t('survey.loading.recordings');
+  };
+
   return (
     <>
       <LoadingSpinner 
-        label={!questions || questions.length === 0 ? "Loading questions..." : "Loading recordings..."} 
+        label={getLoadingMessage()} 
         isVisible={isLoading} 
       />
       <div className={`${styles.mainContainer} step-end`}>

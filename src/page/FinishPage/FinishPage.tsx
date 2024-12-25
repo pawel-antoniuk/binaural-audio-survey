@@ -1,4 +1,5 @@
 import { useState, type FC } from 'react';
+import { Trans } from 'react-i18next';
 import styles from './FinishPage.module.css';
 
 type Props = {
@@ -27,21 +28,27 @@ const FinishPage: FC<Props> = ({ onComment, onCredits }) => {
     <div className={styles.container}>
       <div className={styles.title}>
         <h1>
-          Thank you!
+          <Trans i18nKey="finishPage.title">Thank you!</Trans>
         </h1>
         <h2>
-          You've completed the test.
+          <Trans i18nKey="finishPage.subtitle">You've completed the test.</Trans>
         </h2>
       </div>
 
       <p className={styles.description}>
-        We hope you have enjoyed our test. Please leave your feedback in the box below.
-        Your effort will be appreciated.
+        <Trans i18nKey="finishPage.description">
+          We hope you have enjoyed our test. Please leave your feedback in the box below. 
+          Your effort will be appreciated.
+        </Trans>
       </p>
 
       {showConfirmation && (
         <div className={styles.confirmation}>
-          <span>Message submitted successfully!</span>
+          <span>
+            <Trans i18nKey="finishPage.confirmation.success">
+              Message submitted successfully!
+            </Trans>
+          </span>
           <button
             className={styles.closeButton}
             onClick={() => setShowConfirmation(false)}
@@ -64,14 +71,14 @@ const FinishPage: FC<Props> = ({ onComment, onCredits }) => {
         onClick={handleSubmit}
         disabled={!comment.trim()}
       >
-        Submit message
+        <Trans i18nKey="finishPage.buttons.submit">Submit message</Trans>
       </button>
 
       <p className={styles.credits}>
-        <b>Credits:</b> to see a list of credits,{' '}
-        <button onClick={onCredits} className={styles.creditsLink}>
-          click here
-        </button>
+        <Trans i18nKey="finishPage.credits">
+          <b>Credits</b>: to see a list of credits,{' '}
+          <button onClick={onCredits} className={styles.creditsLink}>click here</button>
+        </Trans>
       </p>
     </div>
   );

@@ -1,35 +1,17 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styles from "./Introduction.module.css";
 import logo from '../../assets/logo-wi.svg';
-import Checkbox from "../../components/Checkbox/Checkbox";
-import StartButton from "../../components/StartButton/StartButton";
-import {config} from "../../config";
-import {Trans, useTranslation} from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
+import TextButton from "../../components/TextButton/TextButton";
+import { Play } from "lucide-react";
 
 interface IntroductionProps {
   onStart: () => void;
-  onPolicy: () => void;
 }
 
-const Introduction: React.FC<IntroductionProps> = ({onStart, onPolicy}) => {
-  const {t} = useTranslation();
-  const [consent, setConsent] = useState(false);
-  const [showError, setShowError] = useState(false);
+const Introduction: React.FC<IntroductionProps> = ({ onStart }) => {
+  const { t } = useTranslation();
 
-  const handleConsentChange = (checked: boolean) => {
-    setConsent(checked);
-    if (checked) {
-      setShowError(false);
-    }
-  };
-
-  const handleStart = () => {
-    if (!consent) {
-      setShowError(true);
-      return;
-    }
-    onStart();
-  };
   return (
     <div className={styles.container}>
       <h1>
@@ -47,8 +29,7 @@ const Introduction: React.FC<IntroductionProps> = ({onStart, onPolicy}) => {
       </p>
       <p>
         <Trans i18nKey="introduction.research">
-          It's part of the research into perception of 3D audio carried out at
-          <a href={t("introduction.universityLink")}>Bialystok University of Technology</a>.
+          It's part of the research into perception of 3D audio carried out at <a href={t("introduction.universityLink")}>Bialystok University of Technology</a>.
           The tests are coordinated by Dr S. K. Zielinski
           (email: <a href={`mailto:s.zielinski@pb.edu.pl`}>s.zielinski@pb.edu.pl</a>).
         </Trans>
@@ -60,31 +41,17 @@ const Introduction: React.FC<IntroductionProps> = ({onStart, onPolicy}) => {
           and model of headphones used. We also use cookies for session management.
         </Trans>
       </p>
-      <div className={styles.consentSection}>
-        <div className={`${styles.consentContainer} ${showError ? styles.errorBorder : ''}`}>
-          <Checkbox checked={consent} onChange={handleConsentChange}/>
-          <p>
-            <Trans i18nKey="introduction.consent">
-              I hereby grant my consent to participate in the listening test and
-              agree to <a href="#" onClick={onPolicy}>terms and cookie policy</a>.
-            </Trans>
-          </p>
-        </div>
-        {showError && (
-          <div className={styles.errorMessage}>
-            <Trans i18nKey="introduction.consentError">
-              Please accept the terms and cookie policy to continue
-            </Trans>
-          </div>
-        )}
-      </div>
-      <StartButton
-        onStart={handleStart}
-        isEnabled={consent}
-        siteKey={config.recaptcha.siteKey}
-      />
+      <TextButton
+        startIcon={<Play />}
+        onClick={onStart}
+        isPrimary={true}
+      >
+        <Trans i18nKey="introduction.start">
+          Start the test
+        </Trans>
+      </TextButton>
       <a href="https://wi.pb.edu.pl/en/" target="_blank" rel="noopener noreferrer">
-        <img src={logo} alt={t('introduction.logoAlt')} className={styles.logo}/>
+        <img src={logo} alt={t('introduction.logoAlt')} className={styles.logo} />
       </a>
     </div>
   );

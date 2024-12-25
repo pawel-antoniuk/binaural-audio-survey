@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
+import { Trans, useTranslation } from 'react-i18next';
 import styles from './CommentDialog.module.css';
 import TextButton from '../components/TextButton/TextButton';
 import TextArea from '../components/TextArea/TextArea';
@@ -11,6 +12,7 @@ interface CommentDialogProps {
 }
 
 const CommentDialog = ({ isOpen, onClose, onSubmit }: CommentDialogProps) => {
+  const { t } = useTranslation();
   const [comment, setComment] = useState('');
   const [showThankYou, setShowThankYou] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -18,7 +20,6 @@ const CommentDialog = ({ isOpen, onClose, onSubmit }: CommentDialogProps) => {
 
   useEffect(() => {
     if (dialogRef.current && showThankYou) {
-      // Set explicit height before transition
       const height = dialogRef.current.scrollHeight;
       dialogRef.current.style.height = `${height}px`;
     }
@@ -32,17 +33,15 @@ const CommentDialog = ({ isOpen, onClose, onSubmit }: CommentDialogProps) => {
       onSubmit(comment);
       setComment('');
       
-      // Start transition
       setTimeout(() => {
         setShowThankYou(true);
-      }, 300); // Wait for exit animation
+      }, 300);
       
-      // Close dialog after showing thank you message
       setTimeout(() => {
         setShowThankYou(false);
         setIsTransitioning(false);
         onClose();
-      }, 2000); // Increased time to account for transitions
+      }, 2000);
     }
   };
 
@@ -53,32 +52,54 @@ const CommentDialog = ({ isOpen, onClose, onSubmit }: CommentDialogProps) => {
         className={styles.dialogContainer} 
         onClick={e => e.stopPropagation()}
       >
-        <button className={styles.closeButton} onClick={onClose}>
+        <button 
+          className={styles.closeButton} 
+          onClick={onClose}
+          aria-label={t("commentDialog.close")}
+        >
           <X size={20} />
         </button>
 
         {showThankYou ? (
           <div className={`${styles.thankYouMessage} ${styles.enter}`}>
-            <p>Thanks for your comment! 🎉</p>
+            <p>
+              <Trans i18nKey="commentDialog.thankYou">
+                Thanks for your feedback! 🎉
+              </Trans>
+            </p>
           </div>
         ) : (
           <div className={`${styles.dialogContent} ${isTransitioning ? styles.exit : styles.enter}`}>
-            <h2>Leave a comment</h2>
-            <p>Share your thoughts about what you see or hear.</p>
+            <h2>
+              <Trans i18nKey="commentDialog.title">
+                Leave a comment
+              </Trans>
+            </h2>
+            <p>
+              <Trans i18nKey="commentDialog.description">
+                Share your thoughts about what you see or hear.
+              </Trans>
+            </p>
             <TextArea
               value={comment}
               onChange={setComment}
-              placeholder="Type your comment here..."
+              placeholder={<Trans i18nKey="commentDialog.placeholder">Type your comment here...</Trans>}
             />
             <div className={styles.buttonGroup}>
-              <TextButton
-                onClick={onClose}
-                text="Cancel" />
+              <TextButton onClick={onClose}>
+                <Trans i18nKey="commentDialog.buttons.cancel">
+                  Cancel
+                </Trans>
+              </TextButton>
               <TextButton
                 onClick={handleSubmit}
-                text="Submit"
                 isPrimary={true}
-                isEnabled={!!comment.trim()} />
+                isEnabled={!!comment.trim()}
+              >
+                <Trans i18nKey="commentDialog.buttons.submit">
+                  Submit
+                </Trans>
+              </TextButton>
             </div>
           </div>
         )}

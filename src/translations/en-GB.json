@@ -4,10 +4,180 @@
     "description": "This website contains a listening test which takes about 10 minutes to complete. During the test you will be asked to listen to 20 short music recordings and to indicate the direction where an ensemble of musicians is located. It requires using headphones.",
     "research": "It's part of the research into perception of 3D audio carried out at <1>Bialystok University of Technology</1>. The tests are coordinated by Dr S. K. Zielinski (email: <3>s.zielinski@pb.edu.pl</3>).",
     "universityLink": "https://pb.edu.pl/en/",
-    "dataCollection": "For the research purposes, we gather anonymous data, including information regarding listeners' age, background, and model of headphones used. We also use cookies for session management.",
+    "dataCollection": "For the research purposes, we gather anonymous data, including information regarding listeners' age, background, and model of headphones used. We also use cookies for session management.",    
+    "logoAlt": "logo",
+    "start": "Start the test"
+  },
+  "questionnaire": {
+    "title": "First, we need to ask you a few questions",
+    "ageRanges": {
+      "under18": "Under 18",
+      "18-24": "18-24",
+      "25-34": "25-34",
+      "35-44": "35-44",
+      "45-54": "45-54",
+      "above54": "Above 54"
+    },
+    "fields": {
+      "age": "Age",
+      "hearingDifficulties": "Hearing difficulties",
+      "listeningTest": "Listening test participation"
+    },
+    "questions": {
+      "age": "What is your age?",
+      "hearing": "Do you have difficulties with your hearing?",
+      "listeningTest": "Have you ever participated in a listening test?",
+      "headphones": "What is the make and model of your headphones?",
+      "identifier": "Identifier (optional)"
+    },
+    "answers": {
+      "yes": "Yes",
+      "no": "No"
+    },
+    "placeholders": {
+      "selectAge": "Please select",
+      "typeHere": "Type in here",
+      "identifier": "Enter identifier (optional)"
+    },
+    "hints": {
+      "identifier1": "Create a unique identifier to look up your results later.",
+      "identifier2": "Please avoid using personal information like your real name."
+    },
+    "errors": {
+      "required": "Required",
+      "missingFields": "Missing required fields",
+      "fillRequired": "Please fill in all required fields: {{fields}}"
+    },
+    "navigation": {
+      "previous": "Previous",
+      "next": "Next"
+    }
+  },
+  "headphoneTest": {
+    "title": "Now, put your headphones on…",
+    "instructions": {
+      "main": "This survey examines how humans perceive the position and width of musical ensembles in <1>binaural</1> recordings. Please put on headphones and use the buttons below to play the audio clips.",
+      "setup": "Ensure that any custom equalizer, spatial audio or sound enhancement features are disabled. Set the volume to a comfortable level, and ensure your headphones are working properly and positioned correctly.",
+      "reminder": "Please keep your headphones on during all the tests. Adjust the volume at any time so that the clips are played back at a comfortable level."
+    },
+    "channels": {
+      "left": "left",
+      "right": "right",
+      "leftChannel": "Left channel",
+      "rightChannel": "Right channel"
+    },
+    "buttons": {
+      "play": "Play",
+      "pause": "Pause",
+      "ariaLabel": "{{action}} {{channel}} channel"
+    },
+    "navigation": {
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "alert": "If you encounter problems with the audio playback, check your audio settings on your device, and refresh this page.",
+    "errors": {
+      "audioPlayback": "Error playing audio:"
+    }
+  },
+  "tour": {
+    "welcome": {
+      "title": "Welcome!",
+      "content": "You will listen to 20 short audio recordings, each presenting different audio source positions. The test has no time limit and will take about 10 minutes."
+    },
+    "playPause": {
+      "title": "Play/Pause Button",
+      "autoLoop": "The recording loops automatically during each test step.",
+      "pauseResume": "You can pause and resume playback using this button.",
+      "spaceKey": "You can also pause and resume using the <1/> (Space) key."
+    },
+    "boundaries": {
+      "title": "Marking Boundaries",
+      "content": "Your task is to identify the spatial boundaries of the musical ensemble. Use the markers to indicate the leftmost and rightmost points where you perceive the locations of sound sources within the ensemble."
+    },
+    "markingGuide": {
+      "title": "Marking Boundaries",
+      "content": "Mark where you perceive the musical ensemble in the recording by setting the left marker where you begin to hear it and the right marker where it ends.",
+      "imageAlt": "Guide for marking boundaries"
+    },
+    "confirm": {
+      "title": "Confirmation Button",
+      "content": "Confirm your answer by clicking this button. You can use it only after listening to a recording. <1> You cannot change your answer after confirmation.</1>"
+    },
+    "comment": {
+      "title": "Comment Button",
+      "content": "Use this button to share feedback about what you see or hear. You can also leave feedback after completing the test."
+    },
+    "tryIt": {
+      "title": "Try it yourself",
+      "content": "Take a moment to explore and test the interface. Click around and make sure everything works as expected. When you're done testing, click the Finish button to complete the tour."
+    },
+    "navigation": {
+      "back": "Back",
+      "close": "Close",
+      "last": "Finish",
+      "next": "Next",
+      "nextWithProgress": "Next (Step {step} of {steps})",
+      "open": "Open the dialog",
+      "skip": "Skip"
+    }
+  },
+  "preparePage": {
+    "title": "Are you ready?",
+    "description": "You are about to start the actual survey. If you need to review the guide again or feel unsure, you can go back. Once you click \"Yes, I'm ready\", the survey will begin.",
+    "buttons": {
+      "return": "No, go back to guide",
+      "start": "Yes, I'm ready"
+    }
+  },
+  "survey": {
+    "loading": {
+      "questions": "Loading questions...",
+      "recordings": "Loading recordings..."
+    }
+  },
+  "commentDialog": {
+    "title": "Leave a comment",
+    "description": "Share your thoughts about what you see or hear.",
+    "placeholder": "Type your comment here...",
+    "thankYou": "Thanks for your feedback! 🎉",
+    "close": "Close",
+    "buttons": {
+      "cancel": "Cancel",
+      "submit": "Submit"
+    }
+  },
+  "policy": {
+    "disclaimer": "The test was prepared according to the best academic practice. It is the responsibility of the participants to control the playback loudness at safe and comfortable level. We are not liable for any hearing losses or damage sustained as a result of the test.",
+    "dataCollection": "We collect information including participants' IP adresses and the names of their operating systems. This information is used to detect false responses. Cookies are used only for session management to detect the moment when the test has started or finished.",
+    "privacy": "All the data gathered throughout the test will be processed anonymously. It is collected solely for academic research purposes and will not be passed to any third party.",
     "consent": "I hereby grant my consent to participate in the listening test and agree to <1>terms and cookie policy</1>.",
-    "policyLinkText": "terms and cookie policy",
     "consentError": "Please accept the terms and cookie policy to continue",
-    "logoAlt": "logo"
+    "approval": "The study received approval of the Ethics Committee of Białystok University of Technology.",
+    "buttons": {
+      "return": "Return"
+    }
+  },
+  "finishPage": {
+    "title": "Thank you!",
+    "subtitle": "You've completed the test.",
+    "description": "We hope you have enjoyed our test. Please leave your feedback in the box below. Your effort will be appreciated.",
+    "confirmation": {
+      "success": "Message submitted successfully!",
+      "closeAriaLabel": "Close"
+    },
+    "comment": {
+      "placeholder": "Type your message here..."
+    },
+    "buttons": {
+      "submit": "Submit message"
+    },
+    "credits": "<0>Credits</0>: to see a list of credits, <3>click here</3>"
+  },
+  "credits": {
+    "title": "Credits",
+    "buttons": {
+      "back": "Back"
+    }
   }
 }

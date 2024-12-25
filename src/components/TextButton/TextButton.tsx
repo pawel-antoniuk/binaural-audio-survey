@@ -1,9 +1,9 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, ReactNode } from "react";
 import styles from './TextButton.module.css';
 
 type TextButtonProps = {
   onClick: () => void;
-  text?: string;
+  children?: ReactNode;
   startIcon?: ReactElement;
   endIcon?: ReactElement;
   className?: string;
@@ -14,7 +14,7 @@ type TextButtonProps = {
 
 const TextButton: React.FC<TextButtonProps> = ({
   onClick,
-  text,
+  children,
   startIcon,
   endIcon,
   style = {},
@@ -24,13 +24,12 @@ const TextButton: React.FC<TextButtonProps> = ({
 }) => {
   return (
     <button
-      onClick={isEnabled ? onClick : undefined}
+      onClick={onClick}
       className={`${styles.button} ${className} ${!isEnabled ? styles.disabled : ''} ${isPrimary ? styles.primary : ''}`}
       style={style}
-      disabled={!isEnabled}
     >
       {startIcon && <span className={styles.startIcon}>{startIcon}</span>}
-      {text && <span>{text}</span>}
+      {children && <span>{children}</span>}
       {endIcon && <span className={styles.endIcon}>{endIcon}</span>}
     </button>
   );

@@ -1,4 +1,5 @@
 import { type FC } from 'react';
+import { Trans } from 'react-i18next';
 import styles from './CreditsPage.module.css';
 import TextButton from '../../components/TextButton/TextButton';
 
@@ -7,136 +8,82 @@ type Props = {
 };
 
 const CreditsPage: FC<Props> = ({ onReturn }) => {
+  // Credits data - kept separate from translations as these are proper nouns
+  const credits = [
+    { title: "All The Gin Is Gone", artist: "Maurizio Pagnutti Sextet", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Alone With You", artist: "Justin Myles", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "A Place For Us", artist: "Carlos Gonzalez", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Back From The Start", artist: "Fergessen", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Directions", artist: "Tom McKenzie", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "The Marsh Marigold's Song", artist: "Don Camillo Choir", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Downtempo", artist: "Bravestar", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "FlecheDOr", artist: "Swing Bazar: Pompamine (Album Selection)", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Fly High", artist: "Aron Jaeger", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Set Me Free", artist: "Ghostly Beard", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Good Time", artist: "Louis Cressy Band", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Happy Blues", artist: "Tommy Marcinek", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "I'm Alright", artist: "Angels In Amplifiers", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { 
+      text: "Patynen, Pulkki, Lokki, Anechoic Recording System for Symphony Orchestra, Acta Acustica united with Acustica, 2008",
+      type: "citation"
+    },
+    { title: "My Own", artist: "Little Chicago's Finest", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "New Day Dawning", artist: "G-Bass Project", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Ode to Bregovic", artist: "Bella's Bartok", link: "https://www.telefunken-elektroakustik.com/multitracks" },
+    { title: "Passing Ships", artist: "The Travelling Band", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Place 2 Be", artist: "Funky Dawgz Brass Band", link: "https://www.telefunken-elektroakustik.com/multitracks" },
+    { title: "Pray For The Rain", artist: "Nerve 9", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Progresivo 1, El Vuelo", artist: "Pablo Martin", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Rachel", artist: "Anna Blanton", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Rumba Chonta", artist: "Alejo Granados", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Scar", artist: "The Lonely Wild", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Schoolboy Fascination", artist: "Al James", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Shore", artist: "Motor Tapes", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "64 Bristol", artist: "Wess Meets West", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Slow Down", artist: "Jessica Childress", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Talk To Me Baby", artist: "Zane Carney & Friends", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Tears In The Rain", artist: "Rod Alexander", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "That's Entertainment", artist: "Öjebokören", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "The Blues Is A Lady", artist: "Peter White", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Back Home To Blue", artist: "The Long Wait", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Through My Eyes", artist: "Jay Menon", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Too Bright", artist: "μ", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Trude The Bumblebee", artist: "Don Camillo Choir: Kasimir's Adventure", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    {
+      text: "D'Orazio et al. (2016) Recordings of Italian Opera orchestra and soloists in a silent room",
+      link: "http://acustica.ing.unibo.it/opera/",
+      type: "citation"
+    },
+    { title: "Widow", artist: "Triviul feat. The Fiend", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Lament", artist: "Wolf's Head & Vixen Morris Band", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
+    { title: "Word Gets Around", artist: "St Vitus", link: "http://www.cambridge-mt.com/ms-mtk.htm" }
+  ];
+
   return (
     <div className={styles.container}>
       <h2>
-        Credits
+        <Trans i18nKey="credits.title">Credits</Trans>
       </h2>
       <div>
         <ul>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"All The Gin Is Gone" by Maurizio Pagnutti Sextet</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Alone With You" by Justin Myles</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"A Place For Us" by Carlos Gonzalez</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Back From The Start" by Fergessen</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Directions" by Tom McKenzie</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"The Marsh Marigold's Song" by Don Camillo Choir</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Downtempo" by Bravestar</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"FlecheDOr" by Swing Bazar: Pompamine (Album Selection)</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Fly High" by Aron Jaeger</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Set Me Free" by Ghostly Beard</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Good Time" by Louis Cressy Band</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Happy Blues" by Tommy Marcinek</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"I'm Alright" by Angels In Amplifiers</a>
-          </li>
-          <li>
-            Patynen, Pulkki, Lokki, Anechoic Recording System for Symphony Orchestra, Acta Acustica united with Acustica, 2008
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"My Own" by Little Chicago's Finest</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"New Day Dawning" by G-Bass Project</a>
-          </li>
-          <li>
-            <a href="https://www.telefunken-elektroakustik.com/multitracks">"Ode to Bregovic" by Bella's Bartok</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Passing Ships" by The Travelling Band</a>
-          </li>
-          <li>
-            <a href="https://www.telefunken-elektroakustik.com/multitracks">"Place 2 Be" by Funky Dawgz Brass Band</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Pray For The Rain" by Nerve 9</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Progresivo 1, El Vuelo" by Pablo Martin</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Rachel" by Anna Blanton</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Rumba Chonta" by Alejo Granados</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Scar" by The Lonely Wild</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Schoolboy Fascination" by Al James</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Shore" by Motor Tapes</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"64 Bristol" by Wess Meets West</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Slow Down" by Jessica Childress</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Talk To Me Baby" by Zane Carney & Friends</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Tears In The Rain" by Rod Alexander</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"That's Entertainment" by Öjebokören</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"The Blues Is A Lady" by Peter White</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Back Home To Blue" by The Long Wait</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Through My Eyes" by Jay Menon</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Too Bright" by μ</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Trude The Bumblebee" by Don Camillo Choir: Kasimir's Adventure</a>
-          </li>
-          <li>
-            <a href="http://acustica.ing.unibo.it/opera/">D’Orazio et al. (2016) Recordings of Italian Opera orchestra and soloists in a silent room</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Widow" by Triviul feat. The Fiend</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Lament" by Wolf's Head & Vixen Morris Band</a>
-          </li>
-          <li>
-            <a href="http://www.cambridge-mt.com/ms-mtk.htm">"Word Gets Around" by St Vitus</a>
-          </li>
+          {credits.map((credit, index) => (
+            <li key={index}>
+              {credit.type === 'citation' ? (
+                credit.link ? (
+                  <a href={credit.link}>{credit.text}</a>
+                ) : (
+                  credit.text
+                )
+              ) : (
+                <a href={credit.link}>{`"${credit.title}" by ${credit.artist}`}</a>
+              )}
+            </li>
+          ))}
         </ul>
       </div>
-      <TextButton text='Back' onClick={onReturn} />
+      <TextButton onClick={onReturn}>
+        <Trans i18nKey="credits.buttons.back">Back</Trans>
+      </TextButton>
     </div>
   );
 };
