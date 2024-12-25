@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-
 interface UserMetadata {
   browser: string;
   userAgent: string;
@@ -13,8 +11,8 @@ interface UserMetadata {
   error?: string;
 }
 
-export const useUserMetadata = () => {
-  const [metadata, setMetadata] = useState<UserMetadata>({
+export function useUserMetadata(): UserMetadata {
+  return {
     browser: getBrowserInfo(),
     userAgent: window.navigator.userAgent,
     language: window.navigator.language,
@@ -23,38 +21,7 @@ export const useUserMetadata = () => {
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     cookiesEnabled: window.navigator.cookieEnabled,
     loading: true
-  });
-
-  useEffect(() => {
-    const getLocation = async () => {
-      try {
-        const response = await fetch('/api/ip');
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch location data');
-        }
-
-        const data = await response.json();
-
-        setMetadata(prev => ({
-          ...prev,
-          geoData: data,
-          loading: false
-        }));
-      } catch (error) {
-        console.error('Failed to get location:', error);
-        setMetadata(prev => ({
-          ...prev,
-          loading: false,
-          error: error instanceof Error ? error.message : 'Failed to fetch location data'
-        }));
-      }
-    };
-
-    getLocation();
-  }, []);
-
-  return metadata;
+  };
 };
 
 function getBrowserInfo(): string {
