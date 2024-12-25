@@ -33,6 +33,7 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish, rememberProgr
     isAudioLoading,
     isPlaying,
     audioPlayed,
+    resetAudioPlayed,
     handlePlayToggle,
     stop
   } = useAudioControl({ questions, currentRecordingIndex });
@@ -43,8 +44,9 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish, rememberProgr
   }
 
   const handleConfirm = (answer: AngularAnswer) => {
+    stop();
     if (audioPlayed) {
-      stop();
+      resetAudioPlayed();
       const currentQuestion = questions[currentRecordingIndex];
       onConfirm(
         currentQuestion.id,
@@ -55,7 +57,7 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish, rememberProgr
         nextQuestion();
       } else {
         handleFinish();
-      }
+      }      
     } else {
       setIsSmallTourRunning(true);
     }
@@ -98,6 +100,7 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish, rememberProgr
                 isPlaying={isPlaying}
                 currentRecordingIndex={currentRecordingIndex}
                 numberOfRecordings={numberOfRecordings}
+                canConfirm={audioPlayed}
               />
             )}
           </motion.div>

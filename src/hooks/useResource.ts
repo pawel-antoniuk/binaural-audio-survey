@@ -3,7 +3,7 @@ import { ApiResource } from '../types/api';
 import { ApiService } from '../services/api.service';
 import { useCaptcha } from './useCaptcha';
 
-export interface UseResourceOptions {
+interface UseResourceOptions {
   autoFetch?: boolean;
   onError?: (error: Error) => void;
 }

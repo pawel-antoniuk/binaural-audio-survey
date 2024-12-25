@@ -6,7 +6,7 @@ export class UserService {
   private static instance: UserService;
   private readonly endpoint = '/users';
 
-  private constructor() {}
+  private constructor() { }
 
   public static getInstance(): UserService {
     if (!UserService.instance) {
@@ -16,7 +16,7 @@ export class UserService {
   }
 
   async sendUser(token: string, user: User): Promise<void> {
-    const response = await apiClient.post<ApiResponse<void>>(
+    await apiClient.post<ApiResponse<void>>(
       this.endpoint,
       user,
       {
@@ -25,6 +25,5 @@ export class UserService {
         },
       }
     );
-    console.log(response);
   }
 }

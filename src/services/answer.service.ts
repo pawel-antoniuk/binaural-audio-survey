@@ -16,7 +16,7 @@ export class AnswerService {
   }
 
   async sendAnswer(token: string, answer: Answer): Promise<void> {
-    const response = await apiClient.post<ApiResponse<void>>(
+    await apiClient.post<ApiResponse<void>>(
       this.endpoint,
       answer,
       {
@@ -25,6 +25,5 @@ export class AnswerService {
         },
       }
     );
-    console.log(response);
   }
 }

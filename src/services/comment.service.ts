@@ -16,7 +16,7 @@ export class CommentService {
   }
 
   async sendComment(token: string, comment: Comment): Promise<void> {
-    const response = await apiClient.post<ApiResponse<void>>(
+    await apiClient.post<ApiResponse<void>>(
       this.endpoint,
       comment,
       {
@@ -25,6 +25,5 @@ export class CommentService {
         },
       }
     );
-    console.log(response);
   }
 }

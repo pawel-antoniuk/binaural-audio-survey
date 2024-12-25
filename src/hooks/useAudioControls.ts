@@ -11,6 +11,7 @@ interface UseAudioControlReturn {
   isAudioLoading: boolean;
   isPlaying: boolean;
   audioPlayed: boolean;
+  resetAudioPlayed: () => void;
   handlePlayToggle: () => void;
   stop: () => void;
 }
@@ -40,6 +41,10 @@ export const useAudioControl = ({
       play(currentRecordingIndex);
       setAudioPlayed(true);
     }
+  };
+
+  const resetAudioPlayed = () => {
+    setAudioPlayed(false);
   };
 
   useEffect(() => {
@@ -72,6 +77,7 @@ export const useAudioControl = ({
     isAudioLoading,
     isPlaying,
     audioPlayed,
+    resetAudioPlayed,
     handlePlayToggle,
     stop
   };

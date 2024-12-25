@@ -19,6 +19,7 @@ type RangeSurvey = {
   onConfirm: (answer: AngularAnswer) => void;
   currentRecordingIndex: number;
   numberOfRecordings: number;
+  canConfirm: boolean;
 };
 
 const RangeSurvey: React.FC<RangeSurvey> = ({
@@ -27,7 +28,8 @@ const RangeSurvey: React.FC<RangeSurvey> = ({
   onCommentSubmit,
   onConfirm,
   currentRecordingIndex,
-  numberOfRecordings
+  numberOfRecordings,
+  canConfirm
 }) => {
   const backgroundCanvasRef = useRef<HTMLCanvasElement>(null);
   const angleCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -318,6 +320,8 @@ const RangeSurvey: React.FC<RangeSurvey> = ({
           icon={<FiCheckCircle size={24} />}
           style={{ gridArea: "3 / 3 / 4 / 4" }}
           className="step-confirm"
+          preventDoubleClick={true}
+          isEnabled={canConfirm}
         >
           <Trans i18nKey="rangeSurvey.buttons.confirm">Confirm</Trans>
         </Button>

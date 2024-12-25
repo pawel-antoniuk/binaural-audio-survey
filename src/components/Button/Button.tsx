@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from './Button.module.css';
 
 type ButtonProps = {
   children?: React.ReactNode;
-  onClick: () => void;
+  onClick: () => void | Promise<void>;
   icon?: React.ReactNode;
   size?: number;
   backgroundColor?: string;
   className?: string;
   style?: React.CSSProperties;
-  caption?: string;
+  preventDoubleClick?: boolean;
+  debounceTime?: number;
+  isEnabled?: boolean;
 };
+
+const LoadingSpinner = () => (
+  <div className={styles.spinnerWrapper}>
+    <div className={styles.spinner} />
+  </div>
+);
 
 const Button: React.FC<ButtonProps> = ({
   children,
@@ -18,23 +26,41 @@ const Button: React.FC<ButtonProps> = ({
   icon,
   style = {},
   className,
-  caption = "",
+  preventDoubleClick = false,
+  debounceTime = 1000,
+  isEnabled = true,
 }) => {
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleClick = async () => {
+    if (isEnabled && preventDoubleClick) {
+      if (isProcessing) return;
+      setIsProcessing(true);
+
+      try {
+        await onClick();
+      } catch (error) {
+        console.error('Button action failed:', error);
+      } finally {
+        setTimeout(() => {
+          setIsProcessing(false);
+        }, debounceTime);
+      }
+    } else {
+      onClick();
+    }
+  };
+
   return (
     <button
-      onClick={onClick}
-      className={`${styles.button} ${className}`}
-      style={{
-        ...style,
-      }}
+      onClick={handleClick}
+      className={`${styles.button} ${className} ${preventDoubleClick && isProcessing ? styles.processing : ''} 
+        ${!isEnabled ? styles.disabled : ''}`}
+      style={style}
     >
-      {icon ?? <div className={styles.iconContainer}>{icon}</div>}
-      {children && <span>{children}</span>}
-      {caption && (
-        <span className={styles.caption}>
-          {caption}
-        </span>
-      )}
+      {!isProcessing && icon && <div className={styles.iconContainer}>{icon}</div>}
+      {isProcessing && preventDoubleClick && <LoadingSpinner />}
+      {children && <span className={styles.text}>{children}</span>}
     </button>
   );
 };
