@@ -1,6 +1,7 @@
 import { type FC } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import TextButton from '../../components/TextButton/TextButton';
+import styles from './CreditsPage.module.css';
 
 type Props = {
   onReturn: () => void;
@@ -8,7 +9,7 @@ type Props = {
 
 const CreditsPage: FC<Props> = ({ onReturn }) => {
   useTranslation();
-  
+
   const credits = [
     { title: "All The Gin Is Gone", artist: "Maurizio Pagnutti Sextet", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
     { title: "Alone With You", artist: "Justin Myles", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
@@ -23,7 +24,7 @@ const CreditsPage: FC<Props> = ({ onReturn }) => {
     { title: "Good Time", artist: "Louis Cressy Band", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
     { title: "Happy Blues", artist: "Tommy Marcinek", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
     { title: "I'm Alright", artist: "Angels In Amplifiers", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
-    { 
+    {
       text: "Patynen, Pulkki, Lokki, Anechoic Recording System for Symphony Orchestra, Acta Acustica united with Acustica, 2008",
       type: "citation"
     },
@@ -61,29 +62,27 @@ const CreditsPage: FC<Props> = ({ onReturn }) => {
 
   return (
     <div className="page-container">
-      <h2>
+      <h1>
         <Trans i18nKey="credits.title">Credits</Trans>
-      </h2>
-      <div>
-        <ul>
-          {credits.map((credit, index) => (
-            <li key={index}>
-              {credit.type === 'citation' ? (
-                credit.link ? (
-                  <a href={credit.link}>{credit.text}</a>
-                ) : (
-                  credit.text
-                )
-              ) : (
-                <a href={credit.link}>{`"${credit.title}" by ${credit.artist}`}</a>
-              )}
-            </li>
-          ))}
-        </ul>
+      </h1>
+      {credits.map((credit, index) => (
+        <div key={index} className={styles.credit}>
+          {credit.type === 'citation' ? (
+            credit.link ? (
+              <a href={credit.link}>{credit.text}</a>
+            ) : (
+              credit.text
+            )
+          ) : (
+            <a href={credit.link}>{`"${credit.title}" by ${credit.artist}`}</a>
+          )}
+        </div>
+      ))}
+      <div className="navigation">
+        <TextButton onClick={onReturn} isPrimary={true}>
+          <Trans i18nKey="credits.buttons.back">Back</Trans>
+        </TextButton>
       </div>
-      <TextButton onClick={onReturn}>
-        <Trans i18nKey="credits.buttons.back">Back</Trans>
-      </TextButton>
     </div>
   );
 };

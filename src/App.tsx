@@ -44,8 +44,7 @@ function PageWrapper({ children }: { children: ReactNode }) {
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [userId,] = useLocalStorage<string | null>('userId', null);
-  const [, storeUser] = useLocalStorage<User | null>('user', null);
+  const [user, storeUser] = useLocalStorage<User | null>('user', null);
   const { create: createUser } = useUser();
   const { create: createComment } = useComments();
   const { create: createMessage } = useMessages();
@@ -53,9 +52,16 @@ function App() {
   const metadata = useUserMetadata();
   const [isTranslationLoading,] = useState(false);
 
+  const getUserId = () => {
+    if (!user) {
+      throw new Error('User not set');
+    }
+    return user.id;
+  };
+
   const handleQuestionnaireFilled = (questionnaire: Questionnaire) => {
-    const user = {
-      id: userId ?? '<UNKNOWN>',
+    const user: User = {
+      id: crypto.randomUUID(),
       questionnaire,
       metadata: JSON.stringify(metadata)
     };
@@ -65,12 +71,12 @@ function App() {
   };
 
   const handleComment = (questionId: string, message: string) => {
-    createComment({ questionId, userId: userId || '', message });
+    createComment({ questionId, userId: getUserId(), message });
   };
 
   const handleConfirm = (questionId: string, audioFilename: string, answer: AngularAnswer) => {
     sendAnswer('token', {
-      userId: userId || '',
+      userId: getUserId(),
       questionId: questionId,
       audioFilename: audioFilename,
       leftAngle: answer.leftAngle,
@@ -80,7 +86,7 @@ function App() {
   };
   
   const handleFinalComment = (message: string) => {
-    createMessage({ userId: userId || '', content: message });
+    createMessage({ userId: getUserId(), content: message });
   };
 
   return (
@@ -159,6 +165,7 @@ function App() {
                   onConfirm={handleConfirm}
                   onComment={handleComment}
                   onFinish={() => navigate("/finish")}
+                  rememberProgress={true}
                 />
               </PageWrapper>
             }

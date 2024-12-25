@@ -3,7 +3,7 @@ import { ApiResource, ApiResponse } from '../types/api';
 
 export class ApiService<T extends ApiResource> {
   constructor(
-    protected readonly endpoint: string,
+    readonly endpoint: string,
     protected readonly transformResponse?: (data: T) => T
   ) {}
 

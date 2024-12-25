@@ -9,7 +9,7 @@ interface AudioHookState {
   isLooping: boolean;
 }
 
-interface UseAudioPreloaderReturn extends AudioHookState {
+interface UseAudioPlayerReturn extends AudioHookState {
   play: (index: number) => void;
   pause: () => void;
   stop: () => void;
@@ -19,7 +19,7 @@ interface UseAudioPreloaderReturn extends AudioHookState {
 export const useAudioPreloader = (
   getUrls: () => string[],
   crossfadeDuration: number = 0.1
-): UseAudioPreloaderReturn => {
+): UseAudioPlayerReturn => {
   const [state, setState] = useState<AudioHookState>({
     isLoading: true,
     loadingProgress: 0,

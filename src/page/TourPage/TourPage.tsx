@@ -17,6 +17,7 @@ const TourPage: React.FC<TourPageProps> = ({ onEnd }) => {
         onComment={() => { }}
         onConfirm={() => { }}
         onFinish={() => { }}
+        rememberProgress={false}
       />
     </div>
   );

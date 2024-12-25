@@ -1,6 +1,8 @@
 import { useState, type FC } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import styles from './FinishPage.module.css';
+import TextArea from '../../components/TextArea/TextArea';
+import TextButton from '../../components/TextButton/TextButton';
 
 type Props = {
   onComment: (message: string) => void;
@@ -8,7 +10,7 @@ type Props = {
 };
 
 const FinishPage: FC<Props> = ({ onComment, onCredits }) => {
-  useTranslation();
+  const { t } = useTranslation();
   const [comment, setComment] = useState('');
   const [showConfirmation, setShowConfirmation] = useState(false);
 
@@ -18,7 +20,6 @@ const FinishPage: FC<Props> = ({ onComment, onCredits }) => {
       setShowConfirmation(true);
       setComment('');
 
-      // Hide confirmation after 3 seconds
       setTimeout(() => {
         setShowConfirmation(false);
       }, 3000);
@@ -27,18 +28,16 @@ const FinishPage: FC<Props> = ({ onComment, onCredits }) => {
 
   return (
     <div className="page-container">
-      <div className={styles.title}>
-        <h1>
-          <Trans i18nKey="finishPage.title">Thank you!</Trans>
-        </h1>
-        <h2>
-          <Trans i18nKey="finishPage.subtitle">You've completed the test.</Trans>
-        </h2>
-      </div>
+      <h1>
+        <Trans i18nKey="finishPage.title">Thank you!</Trans>
+      </h1>
+      <h2>
+        <Trans i18nKey="finishPage.subtitle">You've completed the test</Trans>
+      </h2>
 
       <p className={styles.description}>
         <Trans i18nKey="finishPage.description">
-          We hope you have enjoyed our test. Please leave your feedback in the box below. 
+          We hope you have enjoyed our test. Please leave your feedback in the box below.
           Your effort will be appreciated.
         </Trans>
       </p>
@@ -60,20 +59,23 @@ const FinishPage: FC<Props> = ({ onComment, onCredits }) => {
         </div>
       )}
 
-      <textarea
+      <TextArea
         value={comment}
-        onChange={(e) => setComment(e.target.value)}
-        placeholder="Type your message here..."
+        onChange={(value) => setComment(value)}
+        placeholder={t('finishPage.comment.placeholder')}
         className={styles.textArea}
       />
 
-      <button
-        className={styles.submitButton}
-        onClick={handleSubmit}
-        disabled={!comment.trim()}
-      >
-        <Trans i18nKey="finishPage.buttons.submit">Submit message</Trans>
-      </button>
+
+      <div className='navigation'>
+        <TextButton
+          className={styles.submitButton}
+          onClick={handleSubmit}
+          isEnabled={!!comment.trim()}
+        >
+          <Trans i18nKey="finishPage.buttons.submit">Submit message</Trans>
+        </TextButton>
+      </div>
 
       <p className={styles.credits}>
         <Trans i18nKey="finishPage.credits">

@@ -180,7 +180,7 @@
   },
   "finishPage": {
     "title": "Dziękujemy!",
-    "subtitle": "Ukończyłeś/aś test.",
+    "subtitle": "Ukończyłeś/aś test",
     "description": "Mamy nadzieję, że test Ci się podobał. Prosimy o pozostawienie swojej opinii w polu poniżej. Będziemy wdzięczni za Twój wysiłek.",
     "confirmation": {
       "success": "Wiadomość wysłana pomyślnie!",

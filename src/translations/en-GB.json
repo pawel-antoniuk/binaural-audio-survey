@@ -120,7 +120,7 @@
       "close": "Close",
       "last": "Finish",
       "next": "Next",
-      "nextWithProgress": "Next (Step {step} of {steps})",
+      "nextWithProgress": "Next (step {step} of {steps})",
       "open": "Open the dialog",
       "skip": "Skip"
     }
@@ -180,7 +180,7 @@
   },
   "finishPage": {
     "title": "Thank you!",
-    "subtitle": "You've completed the test.",
+    "subtitle": "You've completed the test",
     "description": "We hope you have enjoyed our test. Please leave your feedback in the box below. Your effort will be appreciated.",
     "confirmation": {
       "success": "Message submitted successfully!",

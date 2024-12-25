@@ -8,4 +8,4 @@ const questionService = new ApiService<Question>('/questions', (question) => ({
   audioFilename: `${config.surveyService.baseUrl}/audio/${question.audioFilename}`
 }));
 
-export const useQuestions = createResourceHook(questionService, { autoFetch: true });
+export const useQuestions = createResourceHook(questionService, { autoFetch: false });

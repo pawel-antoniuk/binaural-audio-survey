@@ -1,69 +1,50 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import styles from './SurveyPage.module.css';
 import RangeSurvey from "../../components/RangeSurvey/RangeSurvey";
-import { useQuestions } from "../../hooks/question.hook";
-import { useAudioPreloader } from "../../hooks/audio.hook";
 import Tour from "../../components/Tour/Tour";
 import AngularAnswer from "../../models/AngularAnswer";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import { useSurveyProgress } from "../../hooks/useSurveyProgress";
+import { useAudioControl } from "../../hooks/useAudioControls";
 
 type Props = {
   onConfirm(questionId: string, audioFilename: string, angularAnswer: AngularAnswer): void;
   onComment(questionId: string, message: string): void;
   onFinish(): void;
+  rememberProgress: boolean;
 };
 
-const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish }) => {
+const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish, rememberProgress = false }) => {
   const { t } = useTranslation();
-  const [currentRecordingIndex, setCurrentRecordingIndex] = useState<number>(0);
-  const [numberOfRecordings, setNumberOfRecordings] = useState<number>(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const { data: questions } = useQuestions();
-  const [audioPlayed, setAudioPlayed] = useState<boolean>(false);
   const [isSmallTourRunning, setIsSmallTourRunning] = useState<boolean>(false);
 
-  function nextQuestion() {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      stop();
-      setCurrentRecordingIndex(currentRecordingIndex + 1);
-      setAudioPlayed(false);
-      setIsTransitioning(false);
-    }, 150);
-  }
-
-  const getAudioUrls = useCallback(() => {
-    return questions.map(q => q.audioFilename);
-  }, [questions]);
+  const {
+    currentRecordingIndex,
+    numberOfRecordings,
+    questions,
+    isLoading,
+    nextQuestion,
+    resetProgress
+  } = useSurveyProgress({ rememberProgress });
 
   const {
-    isLoading: isAudioLoading,
+    isAudioLoading,
     isPlaying,
-    play,
-    pause,
+    audioPlayed,
+    handlePlayToggle,
     stop
-  } = useAudioPreloader(getAudioUrls);
+  } = useAudioControl({ questions, currentRecordingIndex });
 
-  const isLoading = isAudioLoading || !questions || questions.length === 0;
-
-  useEffect(() => {
-    setNumberOfRecordings(questions?.length ?? 0);
-  }, [questions]);
-
-  const handlePlayToggle = () => {
-    setIsSmallTourRunning(false);
-    if (isPlaying) {
-      pause();
-    } else {
-      play(currentRecordingIndex);
-      setAudioPlayed(true);
-    }
-  };
+  const handleFinish = () => {
+    resetProgress();
+    onFinish();
+  }
 
   const handleConfirm = (answer: AngularAnswer) => {
     if (audioPlayed) {
+      stop();
       const currentQuestion = questions[currentRecordingIndex];
       onConfirm(
         currentQuestion.id,
@@ -73,38 +54,12 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish }) => {
       if (currentRecordingIndex < numberOfRecordings - 1) {
         nextQuestion();
       } else {
-        onFinish();
+        handleFinish();
       }
     } else {
       setIsSmallTourRunning(true);
     }
   };
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      const target = event.target as HTMLElement;
-      const isEditingText = target.isContentEditable ||
-        target.tagName === 'INPUT' ||
-        target.tagName === 'TEXTAREA' ||
-        target.tagName === 'SELECT';
-
-      if (event.code === "Space" && !isEditingText) {
-        event.preventDefault();
-        handlePlayToggle();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isPlaying, play, pause, currentRecordingIndex]);
-
-  useEffect(() => {
-    const question = questions[currentRecordingIndex];
-    const currentPlaying = question?.audioFilename?.split('/')?.pop() ?? '';
-    if (currentPlaying && isPlaying) {
-      console.log('Currently playing: ', currentPlaying);
-    }
-  }, [isPlaying]);
 
   const getLoadingMessage = () => {
     if (!questions || questions.length === 0) {
@@ -117,7 +72,7 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish }) => {
     <div className="page-container">
       <LoadingSpinner
         label={getLoadingMessage()}
-        isVisible={isLoading}
+        isVisible={isLoading || isAudioLoading}
       />
       <div className={`${styles.mainContainer} step-end`}>
         {isSmallTourRunning && (
@@ -133,9 +88,9 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish }) => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -200 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
-            className={`${styles.contentWrapper} ${isTransitioning ? styles.transitioning : ''}`}
+            className={styles.contentWrapper}
           >
-            {!isLoading && (
+            {!isLoading && !isAudioLoading && (
               <RangeSurvey
                 onPlayToggle={handlePlayToggle}
                 onCommentSubmit={(message) => onComment(questions[currentRecordingIndex].id, message)}
