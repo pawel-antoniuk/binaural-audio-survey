@@ -52,7 +52,8 @@ const useAudioPlayer = (audioUrl: string | null): AudioPlayerHookReturn => {
   // Initialize audio context and gain node
   useEffect(() => {
     try {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      const AudioContextClass = (window.AudioContext || 
+        (window as any).webkitAudioContext) as typeof AudioContext;      
       audioContextRef.current = new AudioContextClass();
       gainNodeRef.current = audioContextRef.current.createGain();
       gainNodeRef.current.connect(audioContextRef.current.destination);
