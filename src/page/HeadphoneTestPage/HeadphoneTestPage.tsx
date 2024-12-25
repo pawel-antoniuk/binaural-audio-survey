@@ -95,7 +95,7 @@ const HeadphoneTestPage: React.FC<HeadphoneTestPageProps> = ({ onNext, onPreviou
         <p className={styles.instructions}>
           <Trans i18nKey="headphoneTest.instructions.main">
             This survey examines how humans perceive the position and width
-            of musical ensembles in <a href="https://en.wikipedia.org/wiki/Binaural_recording" target="_blank">binaural</a>
+            of musical ensembles in <a href={t("headphoneTest.instructions.binauralLink")} target="_blank">binaural</a>
             recordings. Please put on headphones and use the buttons below
             to play the audio clips.
           </Trans>
@@ -104,8 +104,8 @@ const HeadphoneTestPage: React.FC<HeadphoneTestPageProps> = ({ onNext, onPreviou
           <Trans i18nKey="headphoneTest.instructions.setup">
             Ensure that any custom equalizer,
             spatial audio or sound enhancement features are disabled.
-            Set the volume to a comfortable level, and ensure your
-            headphones are working properly and positioned correctly.
+            Set the volume to a comfortable level, starting from minimum loudness. 
+            Ensure your headphones are working properly and positioned correctly!
           </Trans>
         </p>
 

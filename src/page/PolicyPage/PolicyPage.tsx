@@ -1,5 +1,5 @@
 import { useState, type FC } from 'react';
-import { Trans } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import styles from './PolicyPage.module.css';
 import TextButton from '../../components/TextButton/TextButton';
 import { SkipBack, SkipForward } from 'lucide-react';
@@ -11,6 +11,7 @@ type PolicyProps = {
 };
 
 const PolicyPage: FC<PolicyProps> = ({ onNext, onPrevious }) => {
+  useTranslation();
   const [consent, setConsent] = useState(false);
   const [showError, setShowError] = useState(false);
 
@@ -31,7 +32,11 @@ const PolicyPage: FC<PolicyProps> = ({ onNext, onPrevious }) => {
 
   return (
     <div className={styles.container}>
-      <h1>Terms and Conditions</h1>
+      <h1>
+        <Trans i18nKey="policy.title">
+          Terms and Conditions
+        </Trans>
+      </h1>
       <p>
         <Trans i18nKey="policy.disclaimer">
           The test was prepared according to the best academic practice.

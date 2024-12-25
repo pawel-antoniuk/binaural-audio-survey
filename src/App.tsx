@@ -12,7 +12,6 @@ import Questionnaire from './models/Questionnaire';
 import { useUser } from './hooks/user.hook';
 import { User } from './models/User';
 import useLocalStorage from './hooks/localStorage.hook';
-import { v4 as uuidv4 } from 'uuid';
 import { useComments } from './hooks/comment.hook';
 import AngularAnswer from './models/AngularAnswer';
 import { useAnswer } from './hooks/answer.hook';
@@ -45,20 +44,14 @@ function PageWrapper({ children }: { children: ReactNode }) {
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [userId, setUserId] = useLocalStorage<string | null>('userId', null);
+  const [userId,] = useLocalStorage<string | null>('userId', null);
   const [, storeUser] = useLocalStorage<User | null>('user', null);
   const { create: createUser } = useUser();
   const { create: createComment } = useComments();
   const { create: createMessage } = useMessages();
   const { sendAnswer } = useAnswer();
   const metadata = useUserMetadata();
-  const [isTranslationLoading, setIsTranslationLoading] = useState(false);
-
-  const handleStart = () => {
-    setUserId(uuidv4());
-    storeUser(null);
-    navigate('/questionnaire');
-  };
+  const [isTranslationLoading,] = useState(false);
 
   const handleQuestionnaireFilled = (questionnaire: Questionnaire) => {
     const user = {

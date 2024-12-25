@@ -4,9 +4,9 @@
     "description": "This website contains a listening test which takes about 10 minutes to complete. During the test you will be asked to listen to 20 short music recordings and to indicate the direction where an ensemble of musicians is located. It requires using headphones.",
     "research": "It's part of the research into perception of 3D audio carried out at <1>Bialystok University of Technology</1>. The tests are coordinated by Dr S. K. Zielinski (email: <3>s.zielinski@pb.edu.pl</3>).",
     "universityLink": "https://pb.edu.pl/en/",
-    "dataCollection": "For the research purposes, we gather anonymous data, including information regarding listeners' age, background, and model of headphones used. We also use cookies for session management.",    
+    "dataCollection": "For the research purposes, we gather anonymous data, including information regarding listeners' age, background, and model of headphones used. We also use cookies for session management.",
     "logoAlt": "logo",
-    "start": "Start the test"
+    "start": "Next"
   },
   "questionnaire": {
     "title": "First, we need to ask you a few questions",
@@ -46,7 +46,8 @@
     "errors": {
       "required": "Required",
       "missingFields": "Missing required fields",
-      "fillRequired": "Please fill in all required fields: {{fields}}"
+      "fillRequired": "Please fill in all required fields: {{fields}}",
+      "ageRestriction": "You must be 18 or older to participate in this study."
     },
     "navigation": {
       "previous": "Previous",
@@ -57,7 +58,8 @@
     "title": "Now, put your headphones on…",
     "instructions": {
       "main": "This survey examines how humans perceive the position and width of musical ensembles in <1>binaural</1> recordings. Please put on headphones and use the buttons below to play the audio clips.",
-      "setup": "Ensure that any custom equalizer, spatial audio or sound enhancement features are disabled. Set the volume to a comfortable level, and ensure your headphones are working properly and positioned correctly.",
+      "binauralLink": "https://en.wikipedia.org/wiki/Binaural_recording",
+      "setup": "Ensure that any custom equalizer, spatial audio or sound enhancement features are disabled. Set the volume to a comfortable level, starting from minimum loudness. Ensure your headphones are working properly and positioned correctly!",
       "reminder": "Please keep your headphones on during all the tests. Adjust the volume at any time so that the clips are played back at a comfortable level."
     },
     "channels": {
@@ -83,7 +85,7 @@
   "tour": {
     "welcome": {
       "title": "Welcome!",
-      "content": "You will listen to 20 short audio recordings, each presenting different audio source positions. The test has no time limit and will take about 10 minutes."
+      "content": "This tutorial will familiarize you with the interface and the task."
     },
     "playPause": {
       "title": "Play/Pause Button",
@@ -97,8 +99,12 @@
     },
     "markingGuide": {
       "title": "Marking Boundaries",
-      "content": "Mark where you perceive the musical ensemble in the recording by setting the left marker where you begin to hear it and the right marker where it ends.",
+      "content": "Mark where you perceive the musical ensemble in the recording by placing the left marker at the leftmost boundary of the ensemble and the right marker at the rightmost boundary.",
       "imageAlt": "Guide for marking boundaries"
+    },
+    "widthMeasurement": {
+      "title": "Width Measurement",
+      "content": "Here you will see the current ensemble boundaries and its width, which corresponds to the boundaries you marked in the previous step."
     },
     "confirm": {
       "title": "Confirmation Button",
@@ -124,7 +130,8 @@
   },
   "preparePage": {
     "title": "Are you ready?",
-    "description": "You are about to start the actual survey. If you need to review the guide again or feel unsure, you can go back. Once you click \"Yes, I'm ready\", the survey will begin.",
+    "description1": "You are about to start the survey. If you need to review the guide again or feel unsure, you can go back. Once you click \"Yes, I'm ready\", the test will begin.",
+    "description2": "You will listen to 20 short audio recordings, each presenting different ensemble width. The test has no time limit and will take about 10 minutes.",
     "buttons": {
       "return": "No, go back to guide",
       "start": "Yes, I'm ready"
@@ -134,6 +141,21 @@
     "loading": {
       "questions": "Loading questions...",
       "recordings": "Loading recordings..."
+    }
+  },
+  "rangeSurvey": {
+    "heading": "Mark the perceived left and right boundaries of the musical ensemble.",
+    "recordingProgress": "Recording {{current}} of {{total}}",
+    "buttons": {
+      "play": "Play",
+      "pause": "Pause",
+      "comment": "Comment",
+      "confirm": "Confirm"
+    },
+    "stats": {
+      "leftAngle": "Left angle:",
+      "rightAngle": "Right angle:",
+      "ensembleWidth": "Ensemble width:"
     }
   },
   "commentDialog": {
@@ -148,10 +170,11 @@
     }
   },
   "policy": {
+    "title": "Terms and Conditions",
     "disclaimer": "The test was prepared according to the best academic practice. It is the responsibility of the participants to control the playback loudness at safe and comfortable level. We are not liable for any hearing losses or damage sustained as a result of the test.",
     "dataCollection": "We collect information including participants' IP adresses and the names of their operating systems. This information is used to detect false responses. Cookies are used only for session management to detect the moment when the test has started or finished.",
     "privacy": "All the data gathered throughout the test will be processed anonymously. It is collected solely for academic research purposes and will not be passed to any third party.",
-    "consent": "I hereby grant my consent to participate in the listening test and agree to <1>terms and cookie policy</1>.",
+    "consent": "I hereby grant my consent to participate in the listening test and agree to terms and cookie policy.",
     "consentError": "Please accept the terms and cookie policy to continue",
     "approval": "The study received approval of the Ethics Committee of Białystok University of Technology.",
     "buttons": {

@@ -62,21 +62,16 @@
   pointer-events: none;
 }
 
-.metadataContainer {
-  font-family: monospace;
-  font-size: 0.75em;
-  
-  .statContainer {
-    display: flex;
-    justify-content: center;
+.statContainer {
+  font-size: 1em;
+  display: flex;
+  justify-content: center;
 
-    .statBox {
-      margin-top: 20px;
-      text-align: left;
+  .statBox {
+    text-align: left;
 
-      p {
-        margin: 0;
-      }
+    p {
+      margin: 0;
     }
   }
 }

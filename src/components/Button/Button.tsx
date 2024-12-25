@@ -2,9 +2,9 @@ import React from "react";
 import styles from './Button.module.css';
 
 type ButtonProps = {
+  children?: React.ReactNode;
   onClick: () => void;
   icon?: React.ReactNode;
-  text?: string; // New prop for text
   size?: number;
   backgroundColor?: string;
   className?: string;
@@ -13,9 +13,9 @@ type ButtonProps = {
 };
 
 const Button: React.FC<ButtonProps> = ({
+  children,
   onClick,
   icon,
-  text,
   style = {},
   className,
   caption = "",
@@ -23,14 +23,13 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`${styles.button} ${text ? styles.withText : ''} ${className}`}
+      className={`${styles.button} ${className}`}
       style={{
-        padding: text ? '0 15px' : '0',
         ...style,
       }}
     >
       {icon ?? <div className={styles.iconContainer}>{icon}</div>}
-      {text && <span className={styles.text}>{text}</span>}
+      {children && <span>{children}</span>}
       {caption && (
         <span className={styles.caption}>
           {caption}

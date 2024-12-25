@@ -1,5 +1,5 @@
 import { type FC } from 'react';
-import { Trans } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import styles from './CreditsPage.module.css';
 import TextButton from '../../components/TextButton/TextButton';
 
@@ -8,7 +8,8 @@ type Props = {
 };
 
 const CreditsPage: FC<Props> = ({ onReturn }) => {
-  // Credits data - kept separate from translations as these are proper nouns
+  useTranslation();
+  
   const credits = [
     { title: "All The Gin Is Gone", artist: "Maurizio Pagnutti Sextet", link: "http://www.cambridge-mt.com/ms-mtk.htm" },
     { title: "Alone With You", artist: "Justin Myles", link: "http://www.cambridge-mt.com/ms-mtk.htm" },

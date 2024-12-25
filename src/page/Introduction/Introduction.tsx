@@ -47,7 +47,7 @@ const Introduction: React.FC<IntroductionProps> = ({ onStart }) => {
         isPrimary={true}
       >
         <Trans i18nKey="introduction.start">
-          Start the test
+          Next
         </Trans>
       </TextButton>
       <a href="https://wi.pb.edu.pl/en/" target="_blank" rel="noopener noreferrer">

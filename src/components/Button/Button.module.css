@@ -15,10 +15,7 @@
   background: var(--primary-color);
   color: #fff;
   gap: 8px;
-}
-
-.button.withText {
-  padding: 0 20px;
+  padding: 0 15px;
 }
 
 .button:hover {

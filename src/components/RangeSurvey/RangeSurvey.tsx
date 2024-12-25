@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect, MouseEvent } from "react";
+import { Trans } from "react-i18next";
 import styles from './RangeSurvey.module.css';
 import Button from "../Button/Button";
 import { FiCheckCircle, FiPlay, FiPause } from "react-icons/fi";
@@ -11,24 +12,22 @@ interface Point {
   y: number;
 }
 
-type Props = {
+type RangeSurvey = {
   isPlaying: boolean;
   onPlayToggle: () => void;
   onCommentSubmit: (comment: string) => void;
   onConfirm: (answer: AngularAnswer) => void;
   currentRecordingIndex: number;
   numberOfRecordings: number;
-  currentPlayingRecordingName: string;
 };
 
-const RangeSurvey: React.FC<Props> = ({
+const RangeSurvey: React.FC<RangeSurvey> = ({
   isPlaying,
   onPlayToggle,
   onCommentSubmit,
   onConfirm,
   currentRecordingIndex,
-  numberOfRecordings,
-  currentPlayingRecordingName
+  numberOfRecordings
 }) => {
   const backgroundCanvasRef = useRef<HTMLCanvasElement>(null);
   const angleCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -39,7 +38,6 @@ const RangeSurvey: React.FC<Props> = ({
   const [rightAngle, setRightAngle] = useState<number>(Math.PI * 0.5);
   const [width, setWidth] = useState<number>(Math.PI * 0.25);
   const [isCommentDialogOpen, setIsCommentDialogOpen] = useState(false);
-
 
   const INTERACTION_THRESHOLD = 20;
 
@@ -253,15 +251,19 @@ const RangeSurvey: React.FC<Props> = ({
     setIsCommentDialogOpen(!isCommentDialogOpen);
   };
 
-  const handlePlay = () => {
-    onPlayToggle();
-  };
-
   return (
     <div className={styles.mainContainer}>
       <div className={styles.headingContainer}>
-        <h2>Mark the perceived left and right boundaries of the musical ensemble.</h2>
-        <h3>Recording {currentRecordingIndex + 1} of {numberOfRecordings}</h3>
+        <h2>
+          <Trans i18nKey="rangeSurvey.heading">
+            Mark the perceived left and right boundaries of the musical ensemble.
+          </Trans>
+        </h2>
+        <h3>
+          <Trans i18nKey="rangeSurvey.recordingProgress">
+            Recording {{ current: currentRecordingIndex + 1 }} of {{ total: numberOfRecordings }}
+          </Trans>
+        </h3>
       </div>
       <div className={styles.stageNavigation}>
         <div className={`${styles.stage} step-stage`}>
@@ -284,49 +286,52 @@ const RangeSurvey: React.FC<Props> = ({
             style={{ cursor: isDragging ? 'grabbing' : (hoverHandle ? 'grab' : 'default') }}
           />
         </div>
-        {!isPlaying
-          ? (<Button
-            text="Play"
-            onClick={handlePlay}
+        {!isPlaying ? (
+          <Button
+            onClick={onPlayToggle}
             icon={<FiPlay size={24} />}
             style={{ gridArea: "3 / 1 / 4 / 2" }}
-            className="step-play" />)
-          : (<Button
-            text="Pause"
-            onClick={handlePlay}
+            className="step-play"
+          >
+            <Trans i18nKey="rangeSurvey.buttons.play">Play</Trans>
+          </Button>
+        ) : (
+          <Button
+            onClick={onPlayToggle}
             icon={<FiPause size={24} />}
             style={{ gridArea: "3 / 1 / 4 / 2" }}
-            className="step-play" />)
-        }
+            className="step-play"
+          >
+            <Trans i18nKey="rangeSurvey.buttons.pause">Pause</Trans>
+          </Button>
+        )}
         <Button
-          text="Comment"
           onClick={handleComment}
           icon={<FaRegComment size={24} />}
           style={{ gridArea: "3 / 2 / 4 / 3" }}
           className="step-comment"
-        />
+        >
+          <Trans i18nKey="rangeSurvey.buttons.comment">Comment</Trans>
+        </Button>
         <Button
-          text="Confirm"
           onClick={handleConfirm}
           icon={<FiCheckCircle size={24} />}
           style={{ gridArea: "3 / 3 / 4 / 4" }}
           className="step-confirm"
-        />
-        <div className={styles.metadataContainer} style={{ gridArea: "4 / 2 / 5 / 3" }}>
-          <div className={styles.statContainer}>
-            <div className={styles.statBox}>
-              <p>Angle left:&nbsp;</p>
-              <p>Angle right:&nbsp;</p>
-              <p>Ensemble Width:&nbsp;</p>
-            </div>
-            <div className={styles.statBox}>
-              <p>{formatAngle(leftAngle)}°</p>
-              <p>{formatAngle(rightAngle)}°</p>
-              <p>{formatAngle(width)}°</p>
-            </div>
+        >
+          <Trans i18nKey="rangeSurvey.buttons.confirm">Confirm</Trans>
+        </Button>
+        
+        <div className={`${styles.statContainer} step-ensemble-width`} style={{ gridArea: "4 / 2 / 5 / 3" }}>
+          <div className={styles.statBox}>
+            <p><Trans i18nKey="rangeSurvey.stats.leftAngle">Left angle:</Trans>&nbsp;</p>
+            <p><Trans i18nKey="rangeSurvey.stats.rightAngle">Right angle:</Trans>&nbsp;</p>
+            <p><Trans i18nKey="rangeSurvey.stats.ensembleWidth">Ensemble width:</Trans>&nbsp;</p>
           </div>
-          <div>
-            {currentPlayingRecordingName}
+          <div className={styles.statBox}>
+            <p>{formatAngle(leftAngle)}°</p>
+            <p>{formatAngle(rightAngle)}°</p>
+            <p>{formatAngle(width)}°</p>
           </div>
         </div>
       </div>
@@ -334,7 +339,7 @@ const RangeSurvey: React.FC<Props> = ({
       <CommentDialog
         isOpen={isCommentDialogOpen}
         onClose={() => setIsCommentDialogOpen(false)}
-        onSubmit={(comment) => onCommentSubmit(comment)}
+        onSubmit={onCommentSubmit}
       />
     </div>
   );

@@ -26,8 +26,7 @@ const Tour: React.FC<TourProps> = ({ onEnd, steps }) => {
     {
       title: <Trans i18nKey="tour.welcome.title">Welcome!</Trans>,
       content: <Trans i18nKey="tour.welcome.content">
-        You will listen to 20 short audio recordings, each presenting different audio source positions.
-        The test has no time limit and will take about 10 minutes.
+        This tutorial will familiarize you with the interface and the task.
       </Trans>,
       placement: 'center',
       target: 'body',
@@ -74,14 +73,29 @@ const Tour: React.FC<TourProps> = ({ onEnd, steps }) => {
       content: (
         <div>
           <Trans i18nKey="tour.markingGuide.content">
-            Mark where you perceive the musical ensemble in the recording by setting
-            the left marker where you begin to hear it and the right marker where it ends.
+            Mark where you perceive the musical ensemble in the recording by
+            placing the left marker at the leftmost boundary of the ensemble
+            and the right marker at the rightmost boundary.
           </Trans>
           <img src={guideImage} alt={t('tour.markingGuide.imageAlt')} />
         </div>
       ),
       target: '.step-stage',
       placement: 'center',
+      styles: commonStyles,
+      disableBeacon: true,
+    },
+    {
+      title: <Trans i18nKey="tour.widthMeasurement.title">Ensemble Width</Trans>,
+      content: (
+        <div>
+          <Trans i18nKey="tour.widthMeasurement.content">
+            Here you will see the current ensemble width, which corresponds to the boundaries you marked in the previous step.
+          </Trans>
+        </div>
+      ),
+      target: '.step-ensemble-width',
+      placement: 'top',
       styles: commonStyles,
       disableBeacon: true,
     },
@@ -143,7 +157,7 @@ const Tour: React.FC<TourProps> = ({ onEnd, steps }) => {
     } else {
       setSelectedSteps(allSteps);
     }
-  }, [steps]); // Removed t dependency since we're not using t anymore
+  }, [steps, t]);
 
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { status } = data;

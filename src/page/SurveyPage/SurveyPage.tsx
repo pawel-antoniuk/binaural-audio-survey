@@ -24,11 +24,6 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish }) => {
   const [audioPlayed, setAudioPlayed] = useState<boolean>(false);
   const [isSmallTourRunning, setIsSmallTourRunning] = useState<boolean>(false);
 
-  function currentQuestionName(): string {
-    const question = questions[currentRecordingIndex];
-    return question?.audioFilename?.split('/')?.pop() ?? '';
-  }
-
   function nextQuestion() {
     setIsTransitioning(true);
     setTimeout(() => {
@@ -103,6 +98,14 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish }) => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isPlaying, play, pause, currentRecordingIndex]);
 
+  useEffect(() => {
+    const question = questions[currentRecordingIndex];
+    const currentPlaying = question?.audioFilename?.split('/')?.pop() ?? '';
+    if (currentPlaying && isPlaying) {
+      console.log('Currently playing: ', currentPlaying);
+    }
+  }, [isPlaying]);
+
   const getLoadingMessage = () => {
     if (!questions || questions.length === 0) {
       return t('survey.loading.questions');
@@ -112,9 +115,9 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish }) => {
 
   return (
     <>
-      <LoadingSpinner 
-        label={getLoadingMessage()} 
-        isVisible={isLoading} 
+      <LoadingSpinner
+        label={getLoadingMessage()}
+        isVisible={isLoading}
       />
       <div className={`${styles.mainContainer} step-end`}>
         {isSmallTourRunning && (
@@ -140,7 +143,6 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish }) => {
                 isPlaying={isPlaying}
                 currentRecordingIndex={currentRecordingIndex}
                 numberOfRecordings={numberOfRecordings}
-                currentPlayingRecordingName={currentQuestionName()}
               />
             )}
           </motion.div>

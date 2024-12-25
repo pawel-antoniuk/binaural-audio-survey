@@ -1,5 +1,5 @@
 import { useState, type FC } from 'react';
-import { Trans } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import styles from './FinishPage.module.css';
 
 type Props = {
@@ -8,6 +8,7 @@ type Props = {
 };
 
 const FinishPage: FC<Props> = ({ onComment, onCredits }) => {
+  useTranslation();
   const [comment, setComment] = useState('');
   const [showConfirmation, setShowConfirmation] = useState(false);
 
