@@ -4,6 +4,7 @@ import TextButton from '../../components/TextButton/TextButton';
 import Questionnaire from '../../models/Questionnaire';
 import { SkipBack, SkipForward } from 'lucide-react';
 import { Trans, useTranslation } from 'react-i18next';
+import TextArea from '../../components/TextArea/TextArea';
 
 interface Age {
   value: string;
@@ -88,7 +89,7 @@ const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
   };
 
   return (
-    <div className={styles.container}>
+    <div className="page-container">
       <h1 className={styles.title}>
         <Trans i18nKey="questionnaire.title">
           First, we need to ask you a few questions
@@ -213,9 +214,9 @@ const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
               </Trans>
             </label>
             <div className={`${styles.answer} ${styles.textareaWrapper}`}>
-              <textarea
+              <TextArea
                 value={model.headphonesMakeAndModel || ''}
-                onChange={(e) => setModel({ ...model, headphonesMakeAndModel: e.target.value })}
+                onChange={(value) => setModel({ ...model, headphonesMakeAndModel: value })}
                 placeholder={t('questionnaire.placeholders.typeHere')}
                 className={styles.textarea}
               />
@@ -230,14 +231,9 @@ const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
               </Trans>
               <div className={styles.hint}>
                 <p>
-                  <Trans i18nKey="questionnaire.hints.identifier1">
-                    Create a unique identifier to look up your results later.
-                  </Trans>
-                </p>
-                <p>
-                  <Trans i18nKey="questionnaire.hints.identifier2">
-                    Please avoid using personal information like your real name.
-                  </Trans>
+                  <Trans i18nKey="questionnaire.hints.identifier">
+                    Create a unique identifier to look up your results later. Please avoid using personal information like your real name.
+                  </Trans> 
                 </p>
               </div>
             </label>
@@ -268,7 +264,7 @@ const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
         </div>
       )}
 
-      <div className={styles.navigation}>
+      <div className="navigation">
         <TextButton
           onClick={onReturn}
           startIcon={<SkipBack />}

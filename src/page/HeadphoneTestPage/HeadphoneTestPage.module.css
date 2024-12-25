@@ -1,11 +1,3 @@
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-}
-
 .header {
   font-size: 1.5rem;
   font-weight: bold;
@@ -31,9 +23,10 @@
   align-items: center;
   justify-content: center;
   gap: 2rem;
-  margin-bottom: 2rem;
+  margin: 1rem auto;
   padding: 2rem;
-  background-color: #f9fafb;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
 }
 
@@ -95,43 +88,6 @@
   align-items: center;
   gap: 1rem;
   padding-top: 2rem;
-}
-
-.navigationButtons {
-  display: flex;
-  gap: 1rem;
-}
-
-.navButton {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  font-size: 0.875rem;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-}
-
-.navButton.previous {
-  background-color: transparent;
-  border: 1px solid #e5e7eb;
-  color: #374151;
-}
-
-.navButton.previous:hover {
-  background-color: #f3f4f6;
-}
-
-.navButton.next {
-  background-color: #3b82f6;
-  border: none;
-  color: white;
-}
-
-.navButton.next:hover {
-  background-color: #2563eb;
 }
 
 .buttonIcon {

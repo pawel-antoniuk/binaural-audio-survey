@@ -5,19 +5,20 @@ interface Props {
   value: string;
   onChange: (value: string) => void;
   placeholder?: ReactNode;
+  className?: string;
 }
 
 const TextArea: React.FC<Props> = ({
   value,
   onChange,
-  placeholder = ""
+  placeholder = "",
+  className = ""
 }) => {
-  // Convert ReactNode placeholder to string if it's not already a string
   const getPlaceholderString = () => {
     if (typeof placeholder === 'string') {
       return placeholder;
     }
-    // If it's a React element, try to get its text content
+    
     if (React.isValidElement(placeholder)) {
       const props = placeholder.props as { children?: string };
       return props.children || '';
@@ -27,7 +28,7 @@ const TextArea: React.FC<Props> = ({
 
   return (
     <textarea
-      className={styles.textarea}
+      className={`${styles.textarea} ${className}`}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={getPlaceholderString()}

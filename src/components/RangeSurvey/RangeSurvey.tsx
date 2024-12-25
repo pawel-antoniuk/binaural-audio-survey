@@ -321,18 +321,14 @@ const RangeSurvey: React.FC<RangeSurvey> = ({
         >
           <Trans i18nKey="rangeSurvey.buttons.confirm">Confirm</Trans>
         </Button>
-        
+
         <div className={`${styles.statContainer} step-ensemble-width`} style={{ gridArea: "4 / 2 / 5 / 3" }}>
-          <div className={styles.statBox}>
-            <p><Trans i18nKey="rangeSurvey.stats.leftAngle">Left angle:</Trans>&nbsp;</p>
-            <p><Trans i18nKey="rangeSurvey.stats.rightAngle">Right angle:</Trans>&nbsp;</p>
-            <p><Trans i18nKey="rangeSurvey.stats.ensembleWidth">Ensemble width:</Trans>&nbsp;</p>
-          </div>
-          <div className={styles.statBox}>
-            <p>{formatAngle(leftAngle)}°</p>
-            <p>{formatAngle(rightAngle)}°</p>
-            <p>{formatAngle(width)}°</p>
-          </div>
+          <div className={styles.label}><Trans i18nKey="rangeSurvey.stats.leftAngle">Left angle:</Trans>&nbsp;</div>
+          <div className={styles.number}>{formatAngle(leftAngle)}°</div>
+          <div className={styles.label}><Trans i18nKey="rangeSurvey.stats.rightAngle">Right angle:</Trans>&nbsp;</div>
+          <div className={styles.number}>{formatAngle(rightAngle)}°</div>
+          <div className={styles.label}><Trans i18nKey="rangeSurvey.stats.ensembleWidth">Ensemble width:</Trans>&nbsp;</div>
+          <div className={styles.number}>{formatAngle(width)}°</div>
         </div>
       </div>
 

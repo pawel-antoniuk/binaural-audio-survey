@@ -114,7 +114,7 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish }) => {
   };
 
   return (
-    <>
+    <div className="page-container">
       <LoadingSpinner
         label={getLoadingMessage()}
         isVisible={isLoading}
@@ -122,7 +122,7 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish }) => {
       <div className={`${styles.mainContainer} step-end`}>
         {isSmallTourRunning && (
           <Tour
-            steps={[1, 4]}
+            steps={[1, 5]}
             onEnd={() => setIsSmallTourRunning(false)}
           />
         )}
@@ -148,7 +148,7 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish }) => {
           </motion.div>
         </AnimatePresence>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -37,11 +37,10 @@
     "placeholders": {
       "selectAge": "Wybierz",
       "typeHere": "Wpisz tutaj",
-      "identifier": "Wprowadź identyfikator (opcjonalnie)"
+      "identifier": "Identyfikator (opcjonalnie)"
     },
     "hints": {
-      "identifier1": "Utwórz unikalny identyfikator, aby później móc sprawdzić swoje wyniki.",
-      "identifier2": "Prosimy o nieużywanie danych osobowych, takich jak prawdziwe imię."
+      "identifier": "Utwórz unikalny identyfikator, aby później móc sprawdzić swoje wyniki. Prosimy o nieużywanie danych osobowych, takich jak prawdziwe imię."
     },
     "errors": {
       "required": "Wymagane",
@@ -89,9 +88,7 @@
     },
     "playPause": {
       "title": "Przycisk odtwórz/pauza",
-      "autoLoop": "Nagranie automatycznie zapętla się podczas każdego kroku testu.",
-      "pauseResume": "Możesz zatrzymać i wznowić odtwarzanie za pomocą tego przycisku.",
-      "spaceKey": "Możesz również zatrzymać i wznowić używając klawisza <1/> (Spacja)."
+      "content": "Użyj tego przycisku, aby rozpocząć, wstrzymać i wznowić aktualny utwór. Będzie on automatycznie zapętlony podczas każdego kroku testu. Możesz także nacisnąć klawisz <1/> (Spacja), aby wstrzymać i wznowić odtwarzanie."
     },
     "boundaries": {
       "title": "Zaznaczanie granic",
@@ -123,7 +120,7 @@
       "close": "Zamknij",
       "last": "Zakończ",
       "next": "Dalej",
-      "nextWithProgress": "Dalej (Krok {step} z {steps})",
+      "nextWithProgress": "Dalej (krok {step} z {steps})",
       "open": "Otwórz dialog",
       "skip": "Pomiń"
     }
@@ -131,7 +128,7 @@
   "preparePage": {
     "title": "Czy jesteś gotowy?",
     "description1": "Za chwilę rozpoczniesz ankietę. Jeśli potrzebujesz ponownie przejrzeć przewodnik lub masz wątpliwości, możesz wrócić. Po kliknięciu „Tak, jestem gotowy\" test się rozpocznie.",
-    "description2": "Wysłuchasz 20 krótkich nagrań audio, z których każde prezentuje różne pozycje źródeł dźwięku. Test nie ma limitu czasu i zajmie około 10 minut.",
+    "description2": "Wysłuchasz 20 krótkich nagrań audio, z których każde prezentuje różne pozycje źródeł dźwięku. Test nie ma limitu czasu i zajmuje zwykle około 10 minut.",
     "buttons": {
       "return": "Nie, wróć do przewodnika",
       "start": "Tak, jestem gotowy"

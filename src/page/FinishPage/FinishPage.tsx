@@ -26,7 +26,7 @@ const FinishPage: FC<Props> = ({ onComment, onCredits }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className="page-container">
       <div className={styles.title}>
         <h1>
           <Trans i18nKey="finishPage.title">Thank you!</Trans>

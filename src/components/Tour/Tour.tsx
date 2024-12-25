@@ -11,6 +11,21 @@ type TourProps = {
 };
 
 const commonStyles = {
+  tooltipTitle: {
+    fontSize: '1.6rem',
+  },
+  tooltip: {
+    fontSize: '1rem',
+  },
+  button: {
+    fontSize: '1rem',
+  },
+  buttonNext: {
+    fontSize: '1rem',
+  },
+  buttonBack: {
+    fontSize: '1rem',
+  },
   options: {
     width: 600
   }
@@ -40,14 +55,10 @@ const Tour: React.FC<TourProps> = ({ onEnd, steps }) => {
       title: <Trans i18nKey="tour.playPause.title">Play/Pause Button</Trans>,
       content: (
         <div>
-          <Trans i18nKey="tour.playPause.autoLoop">
-            The recording loops automatically during each test step.
-          </Trans>
-          <Trans i18nKey="tour.playPause.pauseResume">
-            You can pause and resume playback using this button.
-          </Trans>
-          <Trans i18nKey="tour.playPause.spaceKey">
-            You can also pause and resume using the <LuSpace style={{ display: 'inline-block' }} /> (Space) key.
+          <Trans i18nKey="tour.playPause.content">
+            Use this button to play, pause and resume the current track.
+            It will loop automatically during each test step.
+            You can also press <LuSpace style={{ display: 'inline-block' }} /> (Space) key to pause and resume playback.
           </Trans>
         </div>
       ),
@@ -96,7 +107,12 @@ const Tour: React.FC<TourProps> = ({ onEnd, steps }) => {
       ),
       target: '.step-ensemble-width',
       placement: 'top',
-      styles: commonStyles,
+      styles: {
+        ...commonStyles,
+        spotlight: {
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        }
+      },
       disableBeacon: true,
     },
     {

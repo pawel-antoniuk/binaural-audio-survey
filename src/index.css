@@ -67,6 +67,36 @@ h3 {
   line-height: 1.2rem;
 }
 
+.page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 800px;
+  margin: auto;
+
+  p {
+    width: 100%;
+    line-height: 1.6rem;
+    font-size: 1.1rem;
+    margin: 0.2rem auto;
+    text-align: justify;
+  }
+
+  .navigation {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 2rem auto;
+    gap: 1rem;
+  }  
+
+  .navigation:has(> :first-child + *) {
+    justify-content: space-between;
+}
+}
+
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

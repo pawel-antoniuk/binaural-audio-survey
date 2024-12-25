@@ -31,7 +31,7 @@ const PolicyPage: FC<PolicyProps> = ({ onNext, onPrevious }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className="page-container">
       <h1>
         <Trans i18nKey="policy.title">
           Terms and Conditions
@@ -82,7 +82,7 @@ const PolicyPage: FC<PolicyProps> = ({ onNext, onPrevious }) => {
         )}
       </div>
 
-      <div className={styles.navigation}>
+      <div className="navigation">
         <TextButton
           onClick={onPrevious}
           startIcon={<SkipBack />}

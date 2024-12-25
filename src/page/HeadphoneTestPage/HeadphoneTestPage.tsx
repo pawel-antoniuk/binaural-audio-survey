@@ -40,51 +40,80 @@ const HeadphoneTestPage: React.FC<HeadphoneTestPageProps> = ({ onNext, onPreviou
 
   const leftAudioRef = useRef<HTMLAudioElement>(new Audio(leftAudio));
   const rightAudioRef = useRef<HTMLAudioElement>(new Audio(rightAudio));
+  const lastPlayTimeRef = useRef<number>(0);
+  const playbackStartTimeRef = useRef<number>(Date.now());
 
   useEffect(() => {
     leftAudioRef.current.loop = true;
     rightAudioRef.current.loop = true;
 
+    // Add timeupdate listeners to keep track of current playback time
+    const updateLastPlayTime = () => {
+      const elapsedTime = (Date.now() - playbackStartTimeRef.current) / 1000;
+      lastPlayTimeRef.current = elapsedTime % leftAudioRef.current.duration;
+    };
+
+    leftAudioRef.current.addEventListener('timeupdate', updateLastPlayTime);
+    rightAudioRef.current.addEventListener('timeupdate', updateLastPlayTime);
+
     return () => {
       leftAudioRef.current.pause();
       rightAudioRef.current.pause();
+      leftAudioRef.current.removeEventListener('timeupdate', updateLastPlayTime);
+      rightAudioRef.current.removeEventListener('timeupdate', updateLastPlayTime);
     };
   }, []);
 
-  const toggleLeftChannel = (): void => {
+  const toggleLeftChannel = async (): Promise<void> => {
     if (leftPlaying) {
       leftAudioRef.current.pause();
+      lastPlayTimeRef.current = leftAudioRef.current.currentTime;
       setLeftPlaying(false);
     } else {
       if (rightPlaying) {
+        lastPlayTimeRef.current = rightAudioRef.current.currentTime;
         rightAudioRef.current.pause();
         setRightPlaying(false);
       }
-      leftAudioRef.current.play().catch(error =>
-        console.error(t('headphoneTest.errors.audioPlayback'), error)
-      );
-      setLeftPlaying(true);
+      
+      leftAudioRef.current.currentTime = lastPlayTimeRef.current;
+      playbackStartTimeRef.current = Date.now() - (lastPlayTimeRef.current * 1000);
+      
+      try {
+        await leftAudioRef.current.play();
+        setLeftPlaying(true);
+      } catch (error) {
+        console.error(t('headphoneTest.errors.audioPlayback'), error);
+      }
     }
   };
 
-  const toggleRightChannel = (): void => {
+  const toggleRightChannel = async (): Promise<void> => {
     if (rightPlaying) {
       rightAudioRef.current.pause();
+      lastPlayTimeRef.current = rightAudioRef.current.currentTime;
       setRightPlaying(false);
     } else {
       if (leftPlaying) {
+        lastPlayTimeRef.current = leftAudioRef.current.currentTime;
         leftAudioRef.current.pause();
         setLeftPlaying(false);
       }
-      rightAudioRef.current.play().catch(error =>
-        console.error(t('headphoneTest.errors.audioPlayback'), error)
-      );
-      setRightPlaying(true);
+      
+      rightAudioRef.current.currentTime = lastPlayTimeRef.current;
+      playbackStartTimeRef.current = Date.now() - (lastPlayTimeRef.current * 1000);
+      
+      try {
+        await rightAudioRef.current.play();
+        setRightPlaying(true);
+      } catch (error) {
+        console.error(t('headphoneTest.errors.audioPlayback'), error);
+      }
     }
   };
 
   return (
-    <div className={styles.container}>
+    <div className="page-container">
       <h1>
         <Trans i18nKey="headphoneTest.title">
           Now, put your headphones on…

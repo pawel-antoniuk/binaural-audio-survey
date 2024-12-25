@@ -78,12 +78,7 @@ function App() {
       ensembleWidth: answer.ensembleWidth,
     });
   };
-
-  const handleFinishSurvey = () => {
-    console.log('Survey finished');
-    navigate('/finish');
-  };
-
+  
   const handleFinalComment = (message: string) => {
     createMessage({ userId: userId || '', content: message });
   };
@@ -163,7 +158,7 @@ function App() {
                 <SurveyPage
                   onConfirm={handleConfirm}
                   onComment={handleComment}
-                  onFinish={handleFinishSurvey}
+                  onFinish={() => navigate("/finish")}
                 />
               </PageWrapper>
             }

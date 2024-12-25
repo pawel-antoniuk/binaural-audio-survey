@@ -1,6 +1,5 @@
 import { type FC } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import styles from './CreditsPage.module.css';
 import TextButton from '../../components/TextButton/TextButton';
 
 type Props = {
@@ -61,7 +60,7 @@ const CreditsPage: FC<Props> = ({ onReturn }) => {
   ];
 
   return (
-    <div className={styles.container}>
+    <div className="page-container">
       <h2>
         <Trans i18nKey="credits.title">Credits</Trans>
       </h2>

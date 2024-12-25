@@ -40,8 +40,7 @@
       "identifier": "Enter identifier (optional)"
     },
     "hints": {
-      "identifier1": "Create a unique identifier to look up your results later.",
-      "identifier2": "Please avoid using personal information like your real name."
+      "identifier": "Create a unique identifier to look up your results later. Please avoid using personal information like your real name."
     },
     "errors": {
       "required": "Required",
@@ -89,9 +88,7 @@
     },
     "playPause": {
       "title": "Play/Pause Button",
-      "autoLoop": "The recording loops automatically during each test step.",
-      "pauseResume": "You can pause and resume playback using this button.",
-      "spaceKey": "You can also pause and resume using the <1/> (Space) key."
+      "content": "Use this button to play, pause and resume the current track. It will loop automatically during each test step. You can also press <1/> (Space) key to pause and resume playback."
     },
     "boundaries": {
       "title": "Marking Boundaries",

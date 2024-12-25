@@ -1,7 +1,6 @@
 import React from "react";
 import { Trans, useTranslation } from "react-i18next";
 import TextButton from "../../components/TextButton/TextButton";
-import styles from "./PreparePage.module.css";
 import { SkipBack, SkipForward } from "lucide-react";
 
 type PreparePageProps = {
@@ -13,7 +12,7 @@ const PreparePage: React.FC<PreparePageProps> = ({ onStart, onReturn }) => {
   useTranslation();
   
   return (
-    <div className={styles.container}>
+    <div className="page-container">
       <h1>
         <Trans i18nKey="preparePage.title">
           Are you ready?
@@ -34,7 +33,7 @@ const PreparePage: React.FC<PreparePageProps> = ({ onStart, onReturn }) => {
         </Trans>
       </p>
 
-      <div className={styles.navigation}>
+      <div className="navigation">
         <TextButton
           onClick={onReturn}
           startIcon={<SkipBack />}
