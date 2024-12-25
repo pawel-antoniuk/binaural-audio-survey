@@ -22,6 +22,7 @@ import HeadphoneTestPage from './page/HeadphoneTestPage/HeadphoneTestPage';
 import { useUserMetadata } from './hooks/metadata.hook';
 import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
 import LanguageSwitcher from './components/LanguageSwitcher/LanguageSwitcher';
+import { useSurveyProgress } from './hooks/useSurveyProgress';
 
 function PageWrapper({ children }: { children: ReactNode }) {
   const location = useLocation();
@@ -51,6 +52,7 @@ function App() {
   const { sendAnswer } = useAnswer();
   const metadata = useUserMetadata();
   const [isTranslationLoading,] = useState(false);
+  const { resetProgress } = useSurveyProgress({ rememberProgress: true });
 
   const getUserId = () => {
     if (!user) {
@@ -60,6 +62,7 @@ function App() {
   };
 
   const handleQuestionnaireFilled = (questionnaire: Questionnaire) => {
+    resetProgress();
     const user: User = {
       id: crypto.randomUUID(),
       questionnaire,
@@ -84,7 +87,7 @@ function App() {
       ensembleWidth: answer.ensembleWidth,
     });
   };
-  
+
   const handleFinalComment = (message: string) => {
     createMessage({ userId: getUserId(), content: message });
   };

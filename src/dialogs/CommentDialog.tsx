@@ -72,7 +72,7 @@ const CommentDialog = ({ isOpen, onClose, onSubmit }: CommentDialogProps) => {
           <div className={`${styles.dialogContent} ${isTransitioning ? styles.exit : styles.enter}`}>
             <h2>
               <Trans i18nKey="commentDialog.title">
-                Leave a comment
+                Leave a Comment
               </Trans>
             </h2>
             <p>

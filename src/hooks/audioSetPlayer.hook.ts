@@ -16,7 +16,7 @@ interface UseAudioPlayerReturn extends AudioHookState {
   toggleLoop: () => void;
 }
 
-export const useAudioPreloader = (
+export const useAudioSetPlayer = (
   getUrls: () => string[],
   crossfadeDuration: number = 0.1
 ): UseAudioPlayerReturn => {

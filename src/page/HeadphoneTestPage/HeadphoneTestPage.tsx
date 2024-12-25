@@ -1,32 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Play, Pause, SkipBack, SkipForward, Headphones } from 'lucide-react';
+import React from 'react';
+import { SkipBack, SkipForward, Headphones } from 'lucide-react';
 import styles from './HeadphoneTestPage.module.css';
 import leftAudio from '../../assets/test_left.wav';
 import rightAudio from '../../assets/test_right.wav';
 import TextButton from '../../components/TextButton/TextButton';
 import { Trans, useTranslation } from 'react-i18next';
-
-interface AudioButtonProps {
-  onClick: () => void;
-  isPlaying: boolean;
-  channel: 'left' | 'right';
-}
-
-const AudioButton: React.FC<AudioButtonProps> = ({ onClick, isPlaying, channel }) => {
-  const { t } = useTranslation();
-  return (
-    <button
-      onClick={onClick}
-      className={`${styles.audioButton} ${isPlaying ? styles.playing : ''}`}
-      aria-label={t('headphoneTest.buttons.ariaLabel', {
-        action: isPlaying ? t('headphoneTest.buttons.pause') : t('headphoneTest.buttons.play'),
-        channel: t(`headphoneTest.channels.${channel}`)
-      })}
-    >
-      {isPlaying ? <Pause /> : <Play />}
-    </button>
-  );
-};
+import AudioButton from '../../components/AudioButton/AudioButton';
+import useAudioPlayer2 from '../../hooks/audioPlayer.hook';
 
 interface HeadphoneTestPageProps {
   onNext: () => void;
@@ -35,80 +15,30 @@ interface HeadphoneTestPageProps {
 
 const HeadphoneTestPage: React.FC<HeadphoneTestPageProps> = ({ onNext, onPrevious }) => {
   const { t } = useTranslation();
-  const [leftPlaying, setLeftPlaying] = useState<boolean>(false);
-  const [rightPlaying, setRightPlaying] = useState<boolean>(false);
+  const { play: playLeft, pause: pauseLeft, isPlaying: isPlayingLeft, currentTime: currentTimeLeft } = useAudioPlayer2(leftAudio);
+  const { play: playRight, pause: pauseRight, isPlaying: isPlayingRight, currentTime: currentTimeRight } = useAudioPlayer2(rightAudio);
 
-  const leftAudioRef = useRef<HTMLAudioElement>(new Audio(leftAudio));
-  const rightAudioRef = useRef<HTMLAudioElement>(new Audio(rightAudio));
-  const lastPlayTimeRef = useRef<number>(0);
-  const playbackStartTimeRef = useRef<number>(Date.now());
-
-  useEffect(() => {
-    leftAudioRef.current.loop = true;
-    rightAudioRef.current.loop = true;
-
-    // Add timeupdate listeners to keep track of current playback time
-    const updateLastPlayTime = () => {
-      const elapsedTime = (Date.now() - playbackStartTimeRef.current) / 1000;
-      lastPlayTimeRef.current = elapsedTime % leftAudioRef.current.duration;
-    };
-
-    leftAudioRef.current.addEventListener('timeupdate', updateLastPlayTime);
-    rightAudioRef.current.addEventListener('timeupdate', updateLastPlayTime);
-
-    return () => {
-      leftAudioRef.current.pause();
-      rightAudioRef.current.pause();
-      leftAudioRef.current.removeEventListener('timeupdate', updateLastPlayTime);
-      rightAudioRef.current.removeEventListener('timeupdate', updateLastPlayTime);
-    };
-  }, []);
-
-  const toggleLeftChannel = async (): Promise<void> => {
-    if (leftPlaying) {
-      leftAudioRef.current.pause();
-      lastPlayTimeRef.current = leftAudioRef.current.currentTime;
-      setLeftPlaying(false);
+  const toggleLeftChannel = () => {
+    if (isPlayingRight) {
+      pauseRight();
+      console.log(currentTimeRight);
+      playLeft(currentTimeRight);
+    } else if (isPlayingLeft) {
+      pauseLeft();
     } else {
-      if (rightPlaying) {
-        lastPlayTimeRef.current = rightAudioRef.current.currentTime;
-        rightAudioRef.current.pause();
-        setRightPlaying(false);
-      }
-      
-      leftAudioRef.current.currentTime = lastPlayTimeRef.current;
-      playbackStartTimeRef.current = Date.now() - (lastPlayTimeRef.current * 1000);
-      
-      try {
-        await leftAudioRef.current.play();
-        setLeftPlaying(true);
-      } catch (error) {
-        console.error(t('headphoneTest.errors.audioPlayback'), error);
-      }
+      playLeft(currentTimeLeft);
     }
   };
 
-  const toggleRightChannel = async (): Promise<void> => {
-    if (rightPlaying) {
-      rightAudioRef.current.pause();
-      lastPlayTimeRef.current = rightAudioRef.current.currentTime;
-      setRightPlaying(false);
+  const toggleRightChannel = () => {
+    if (isPlayingLeft) {
+      pauseLeft();
+      console.log(currentTimeLeft);
+      playRight(currentTimeLeft);
+    } else if (isPlayingRight) {
+      pauseRight();
     } else {
-      if (leftPlaying) {
-        lastPlayTimeRef.current = leftAudioRef.current.currentTime;
-        leftAudioRef.current.pause();
-        setLeftPlaying(false);
-      }
-      
-      rightAudioRef.current.currentTime = lastPlayTimeRef.current;
-      playbackStartTimeRef.current = Date.now() - (lastPlayTimeRef.current * 1000);
-      
-      try {
-        await rightAudioRef.current.play();
-        setRightPlaying(true);
-      } catch (error) {
-        console.error(t('headphoneTest.errors.audioPlayback'), error);
-      }
+      playRight(currentTimeRight);
     }
   };
 
@@ -129,11 +59,12 @@ const HeadphoneTestPage: React.FC<HeadphoneTestPageProps> = ({ onNext, onPreviou
             to play the audio clips.
           </Trans>
         </p>
+
         <p className={styles.instructions}>
           <Trans i18nKey="headphoneTest.instructions.setup">
             Ensure that any custom equalizer,
             spatial audio or sound enhancement features are disabled.
-            Set the volume to a comfortable level, starting from minimum loudness. 
+            Set the volume to a comfortable level, starting from minimum loudness.
             Ensure your headphones are working properly and positioned correctly!
           </Trans>
         </p>
@@ -142,12 +73,12 @@ const HeadphoneTestPage: React.FC<HeadphoneTestPageProps> = ({ onNext, onPreviou
           <div className={styles.channelSection}>
             <AudioButton
               onClick={toggleLeftChannel}
-              isPlaying={leftPlaying}
+              isPlaying={isPlayingLeft}
               channel="left"
             />
             <span className={styles.channelLabel}>
               <Trans i18nKey="headphoneTest.channels.leftChannel">
-                Left channel
+                Left side
               </Trans>
             </span>
           </div>
@@ -159,12 +90,12 @@ const HeadphoneTestPage: React.FC<HeadphoneTestPageProps> = ({ onNext, onPreviou
           <div className={styles.channelSection}>
             <AudioButton
               onClick={toggleRightChannel}
-              isPlaying={rightPlaying}
+              isPlaying={isPlayingRight}
               channel="right"
             />
             <span className={styles.channelLabel}>
               <Trans i18nKey="headphoneTest.channels.rightChannel">
-                Right channel
+                Right side
               </Trans>
             </span>
           </div>

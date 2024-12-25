@@ -1,32 +1,19 @@
-.card {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-  margin-bottom: 1rem;
-}
-
 .formGrid {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
+  margin-top: 0.5rem;
 }
 
 .formRow {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 2rem;
+  gap: 1rem;
   align-items: start;
 }
 
 .fullWidth {
   grid-template-columns: 1fr;
-}
-
-.question {
-  font-size: 1rem;
-  color: #333;
-  line-height: 1.5;
 }
 
 .fieldError {
@@ -50,8 +37,9 @@
   background-color: #fff1f0 !important;
 }
 
-.hint {
+label .hint p {
   font-size: 1rem;
+  line-height: 1.5rem;
   color: #666;
   margin-top: 0.25rem;
 }

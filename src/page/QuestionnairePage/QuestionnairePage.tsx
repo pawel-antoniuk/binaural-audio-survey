@@ -90,162 +90,161 @@ const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
 
   return (
     <div className="page-container">
-      <h1 className={styles.title}>
+      <h1>
         <Trans i18nKey="questionnaire.title">
           First, we need to ask you a few questions
         </Trans>
       </h1>
-      <div className={styles.card}>
-        <div className={styles.formGrid}>
-          {/* Age Question */}
-          <div className={styles.formRow}>
-            <label className={styles.question}>
-              <Trans i18nKey="questionnaire.questions.age">
-                What is your age?
-              </Trans>*
-              {showError && !model.age && (
-                <span className={styles.fieldError}>
-                  <Trans i18nKey="questionnaire.errors.required">Required</Trans>
-                </span>
-              )}
-            </label>
-            <div className={styles.answer}>
-              <select
-                value={model.age || ''}
-                onChange={handleAgeChange}
-                className={`${styles.select} ${(showError && !model.age) || ageError ? styles.inputError : ''}`}
-              >
-                <option value="" disabled>{t('questionnaire.placeholders.selectAge')}</option>
-                {ages.map((age) => (
-                  <option key={age.value} value={age.value}>
-                    {age.viewValue}
-                  </option>
-                ))}
-              </select>
+      
+      <div className={styles.formGrid}>
+        {/* Age Question */}
+        <div className={styles.formRow}>
+          <label className={styles.question}>
+            <Trans i18nKey="questionnaire.questions.age">
+              What is your age?
+            </Trans>*
+            {showError && !model.age && (
+              <span className={styles.fieldError}>
+                <Trans i18nKey="questionnaire.errors.required">Required</Trans>
+              </span>
+            )}
+          </label>
+          <div className={styles.answer}>
+            <select
+              value={model.age || ''}
+              onChange={handleAgeChange}
+              className={`${styles.select} ${(showError && !model.age) || ageError ? styles.inputError : ''}`}
+            >
+              <option value="" disabled>{t('questionnaire.placeholders.selectAge')}</option>
+              {ages.map((age) => (
+                <option key={age.value} value={age.value}>
+                  {age.viewValue}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Rest of the form fields remain the same */}
+        {/* Hearing Difficulties Question */}
+        <div className={styles.formRow}>
+          <label className={styles.question}>
+            <Trans i18nKey="questionnaire.questions.hearing">
+              Do you have difficulties with your hearing?
+            </Trans>*
+            {showError && !model.hearingDifficulties && (
+              <span className={styles.fieldError}>
+                <Trans i18nKey="questionnaire.errors.required">Required</Trans>
+              </span>
+            )}
+          </label>
+          <div className={styles.answer}>
+            <div className={`${styles.radioGroup} ${showError && !model.hearingDifficulties ? styles.inputError : ''}`}>
+              <label className={styles.radioLabel}>
+                <input
+                  type="radio"
+                  name="hearingDifficulties"
+                  value="1"
+                  checked={model.hearingDifficulties === "1"}
+                  onChange={(e) => setModel({ ...model, hearingDifficulties: e.target.value })}
+                  className={styles.radioInput}
+                />
+                <span><Trans i18nKey="questionnaire.answers.yes">Yes</Trans></span>
+              </label>
+              <label className={styles.radioLabel}>
+                <input
+                  type="radio"
+                  name="hearingDifficulties"
+                  value="0"
+                  checked={model.hearingDifficulties === "0"}
+                  onChange={(e) => setModel({ ...model, hearingDifficulties: e.target.value })}
+                  className={styles.radioInput}
+                />
+                <span><Trans i18nKey="questionnaire.answers.no">No</Trans></span>
+              </label>
             </div>
           </div>
+        </div>
 
-          {/* Rest of the form fields remain the same */}
-          {/* Hearing Difficulties Question */}
-          <div className={styles.formRow}>
-            <label className={styles.question}>
-              <Trans i18nKey="questionnaire.questions.hearing">
-                Do you have difficulties with your hearing?
-              </Trans>*
-              {showError && !model.hearingDifficulties && (
-                <span className={styles.fieldError}>
-                  <Trans i18nKey="questionnaire.errors.required">Required</Trans>
-                </span>
-              )}
-            </label>
-            <div className={styles.answer}>
-              <div className={`${styles.radioGroup} ${showError && !model.hearingDifficulties ? styles.inputError : ''}`}>
-                <label className={styles.radioLabel}>
-                  <input
-                    type="radio"
-                    name="hearingDifficulties"
-                    value="1"
-                    checked={model.hearingDifficulties === "1"}
-                    onChange={(e) => setModel({ ...model, hearingDifficulties: e.target.value })}
-                    className={styles.radioInput}
-                  />
-                  <span><Trans i18nKey="questionnaire.answers.yes">Yes</Trans></span>
-                </label>
-                <label className={styles.radioLabel}>
-                  <input
-                    type="radio"
-                    name="hearingDifficulties"
-                    value="0"
-                    checked={model.hearingDifficulties === "0"}
-                    onChange={(e) => setModel({ ...model, hearingDifficulties: e.target.value })}
-                    className={styles.radioInput}
-                  />
-                  <span><Trans i18nKey="questionnaire.answers.no">No</Trans></span>
-                </label>
-              </div>
+        {/* Listening Test Question */}
+        <div className={styles.formRow}>
+          <label className={styles.question}>
+            <Trans i18nKey="questionnaire.questions.listeningTest">
+              Have you ever participated in a listening test?
+            </Trans>*
+            {showError && !model.listeningTestParticipation && (
+              <span className={styles.fieldError}>
+                <Trans i18nKey="questionnaire.errors.required">Required</Trans>
+              </span>
+            )}
+          </label>
+          <div className={styles.answer}>
+            <div className={`${styles.radioGroup} ${showError && !model.listeningTestParticipation ? styles.inputError : ''}`}>
+              <label className={styles.radioLabel}>
+                <input
+                  type="radio"
+                  name="listeningTest"
+                  value="1"
+                  checked={model.listeningTestParticipation === "1"}
+                  onChange={(e) => setModel({ ...model, listeningTestParticipation: e.target.value })}
+                  className={styles.radioInput}
+                />
+                <span><Trans i18nKey="questionnaire.answers.yes">Yes</Trans></span>
+              </label>
+              <label className={styles.radioLabel}>
+                <input
+                  type="radio"
+                  name="listeningTest"
+                  value="0"
+                  checked={model.listeningTestParticipation === "0"}
+                  onChange={(e) => setModel({ ...model, listeningTestParticipation: e.target.value })}
+                  className={styles.radioInput}
+                />
+                <span><Trans i18nKey="questionnaire.answers.no">No</Trans></span>
+              </label>
             </div>
           </div>
+        </div>
 
-          {/* Listening Test Question */}
-          <div className={styles.formRow}>
-            <label className={styles.question}>
-              <Trans i18nKey="questionnaire.questions.listeningTest">
-                Have you ever participated in a listening test?
-              </Trans>*
-              {showError && !model.listeningTestParticipation && (
-                <span className={styles.fieldError}>
-                  <Trans i18nKey="questionnaire.errors.required">Required</Trans>
-                </span>
-              )}
-            </label>
-            <div className={styles.answer}>
-              <div className={`${styles.radioGroup} ${showError && !model.listeningTestParticipation ? styles.inputError : ''}`}>
-                <label className={styles.radioLabel}>
-                  <input
-                    type="radio"
-                    name="listeningTest"
-                    value="1"
-                    checked={model.listeningTestParticipation === "1"}
-                    onChange={(e) => setModel({ ...model, listeningTestParticipation: e.target.value })}
-                    className={styles.radioInput}
-                  />
-                  <span><Trans i18nKey="questionnaire.answers.yes">Yes</Trans></span>
-                </label>
-                <label className={styles.radioLabel}>
-                  <input
-                    type="radio"
-                    name="listeningTest"
-                    value="0"
-                    checked={model.listeningTestParticipation === "0"}
-                    onChange={(e) => setModel({ ...model, listeningTestParticipation: e.target.value })}
-                    className={styles.radioInput}
-                  />
-                  <span><Trans i18nKey="questionnaire.answers.no">No</Trans></span>
-                </label>
-              </div>
-            </div>
+        {/* Headphones Question */}
+        <div className={`${styles.formRow} ${styles.fullWidth}`}>
+          <label className={styles.question}>
+            <Trans i18nKey="questionnaire.questions.headphones">
+              What is the make and model of your headphones?
+            </Trans>
+          </label>
+          <div className={`${styles.answer} ${styles.textareaWrapper}`}>
+            <TextArea
+              value={model.headphonesMakeAndModel || ''}
+              onChange={(value) => setModel({ ...model, headphonesMakeAndModel: value })}
+              placeholder={t('questionnaire.placeholders.typeHere')}
+              className={styles.textarea}
+            />
           </div>
+        </div>
 
-          {/* Headphones Question */}
-          <div className={`${styles.formRow} ${styles.fullWidth}`}>
-            <label className={styles.question}>
-              <Trans i18nKey="questionnaire.questions.headphones">
-                What is the make and model of your headphones?
-              </Trans>
-            </label>
-            <div className={`${styles.answer} ${styles.textareaWrapper}`}>
-              <TextArea
-                value={model.headphonesMakeAndModel || ''}
-                onChange={(value) => setModel({ ...model, headphonesMakeAndModel: value })}
-                placeholder={t('questionnaire.placeholders.typeHere')}
-                className={styles.textarea}
-              />
+        {/* Identifier Question */}
+        <div className={styles.formRow}>
+          <label className={styles.question}>
+            <Trans i18nKey="questionnaire.questions.identifier">
+              Identifier (optional)
+            </Trans>
+            <div className={styles.hint}>
+              <p>
+                <Trans i18nKey="questionnaire.hints.identifier">
+                  Create a unique identifier to look up your results later. Please avoid using personal information like your real name.
+                </Trans>
+              </p>
             </div>
-          </div>
-
-          {/* Identifier Question */}
-          <div className={styles.formRow}>
-            <label className={styles.question}>
-              <Trans i18nKey="questionnaire.questions.identifier">
-                Identifier (optional)
-              </Trans>
-              <div className={styles.hint}>
-                <p>
-                  <Trans i18nKey="questionnaire.hints.identifier">
-                    Create a unique identifier to look up your results later. Please avoid using personal information like your real name.
-                  </Trans> 
-                </p>
-              </div>
-            </label>
-            <div className={styles.answer}>
-              <input
-                type="text"
-                value={model.identifier || ''}
-                onChange={(e) => setModel({ ...model, identifier: e.target.value })}
-                placeholder={t('questionnaire.placeholders.identifier')}
-                className={styles.textInput}
-              />
-            </div>
+          </label>
+          <div className={styles.answer}>
+            <input
+              type="text"
+              value={model.identifier || ''}
+              onChange={(e) => setModel({ ...model, identifier: e.target.value })}
+              placeholder={t('questionnaire.placeholders.identifier')}
+              className={styles.textInput}
+            />
           </div>
         </div>
       </div>

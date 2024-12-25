@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { ApiResource } from '../types/api';
 import { ApiService } from '../services/api.service';
-import { useCaptcha } from './useCaptcha';
+import { useCaptcha } from './useCaptcha.tsx';
 
 interface UseResourceOptions {
   autoFetch?: boolean;

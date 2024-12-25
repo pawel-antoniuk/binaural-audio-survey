@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState } from 'react';
-import { useAudioPreloader } from './audio.hook';
+import { useAudioSetPlayer } from './audioSetPlayer.hook';
 import Question from '../models/Question';
 
 interface UseAudioControlProps {
@@ -32,7 +32,7 @@ export const useAudioControl = ({
     play,
     pause,
     stop
-  } = useAudioPreloader(getAudioUrls);
+  } = useAudioSetPlayer(getAudioUrls);
 
   const handlePlayToggle = () => {
     if (isPlaying) {

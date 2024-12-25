@@ -1,7 +1,7 @@
 {
   "introduction": {
     "welcome": "Witaj",
-    "description": "Ta strona zawiera test odsłuchowy, który trwa około 10 minut. Podczas testu zostaniesz poproszony o wysłuchanie 20 krótkich nagrań muzycznych i wskazanie kierunku, z którego dobiega dźwięk zespołu muzyków. Test wymaga użycia słuchawek.",
+    "description": "Ta strona zawiera test odsłuchowy, który trwa około 10 minut. Podczas testu zostaniesz poproszony o wysłuchanie 40 krótkich nagrań muzycznych i wskazanie kierunku, z którego dobiega dźwięk zespołu muzyków. Test wymaga użycia słuchawek.",
     "research": "Jest to część badań nad percepcją dźwięku 3D prowadzonych na <1>Politechnice Białostockiej</1>. Testy są koordynowane przez dr S. K. Zielińskiego (email: <3>s.zielinski@pb.edu.pl</3>).",
     "universityLink": "https://pb.edu.pl/",
     "dataCollection": "Na potrzeby badań zbieramy anonimowe dane, w tym informacje dotyczące wieku słuchaczy, doświadczenia i modelu używanych słuchawek. Używamy również plików cookie do zarządzania sesją.",
@@ -27,7 +27,7 @@
       "age": "Jaki jest Twój wiek?",
       "hearing": "Czy masz problemy ze słuchem?",
       "listeningTest": "Czy kiedykolwiek brałeś/aś udział w teście odsłuchowym?",
-      "headphones": "Jaka jest marka i model Twoich słuchawek?",
+      "headphones": "Jaka jest marka i model Twoich słuchawek? (opcjonalnie)",
       "identifier": "Identyfikator (opcjonalnie)"
     },
     "answers": {
@@ -64,8 +64,8 @@
     "channels": {
       "left": "lewy",
       "right": "prawy",
-      "leftChannel": "Kanał lewy",
-      "rightChannel": "Kanał prawy"
+      "leftChannel": "Lewa strona",
+      "rightChannel": "Prawa strona"
     },
     "buttons": {
       "play": "Odtwórz",
@@ -128,7 +128,7 @@
   "preparePage": {
     "title": "Czy jesteś gotowy?",
     "description1": "Za chwilę rozpoczniesz ankietę. Jeśli potrzebujesz ponownie przejrzeć przewodnik lub masz wątpliwości, możesz wrócić. Po kliknięciu „Tak, jestem gotowy\" test się rozpocznie.",
-    "description2": "Wysłuchasz 20 krótkich nagrań audio, z których każde prezentuje różne pozycje źródeł dźwięku. Test nie ma limitu czasu i zajmuje zwykle około 10 minut.",
+    "description2": "Wysłuchasz 40 krótkich nagrań audio, z których każde prezentuje różne pozycje źródeł dźwięku. Test nie ma limitu czasu i zajmuje zwykle około 10 minut.",
     "buttons": {
       "return": "Nie, wróć do przewodnika",
       "start": "Tak, jestem gotowy"

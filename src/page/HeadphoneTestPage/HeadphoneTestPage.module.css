@@ -48,40 +48,6 @@
   color: #4b5563;
 }
 
-.audioButton {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 9999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #3b82f6;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.audioButton:hover {
-  background-color: #2563eb;
-  transform: scale(1.05);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.audioButton.playing {
-  background-color: #dc2626;
-}
-
-.audioButton.playing:hover {
-  background-color: #b91c1c;
-}
-
-.audioButton svg {
-  width: 1.5rem;
-  height: 1.5rem;
-  color: white;
-}
-
 .footer {
   margin-top: auto;
   display: flex;

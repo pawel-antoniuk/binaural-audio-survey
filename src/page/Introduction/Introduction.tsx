@@ -57,7 +57,7 @@ const Introduction: React.FC<IntroductionProps> = ({ onStart }) => {
       <p>
         <Trans i18nKey="introduction.description">
           This website contains a listening test which takes about 10 minutes to complete.
-          During the test you will be asked to listen to 20 short music recordings and to
+          During the test you will be asked to listen to 40 short music recordings and to
           indicate the direction where an ensemble of musicians is located. It requires
           using headphones.
         </Trans>
