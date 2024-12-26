@@ -22,7 +22,7 @@ const PreparePage: React.FC<PreparePageProps> = ({ onStart, onReturn }) => {
       <p>
         <Trans i18nKey="preparePage.description2">
           You will listen to 40 short audio recordings, each presenting different ensemble width.
-          The test has no time limit and will take about 10 minutes.
+          The test has no time limit and will take about 10-20 minutes.
         </Trans>
       </p>
 
