@@ -84,7 +84,7 @@ const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
       hearingDifficulties: model.hearingDifficulties === '1',
       listeningTestParticipation: model.listeningTestParticipation === '1',
       headphonesMakeAndModel: model.headphonesMakeAndModel || '',
-      identifier: model.identifier,
+      customIdentifier: model.identifier,
     });
   };
 

@@ -5,5 +5,5 @@ export default interface Questionnaire extends ApiResource {
   hearingDifficulties: boolean;
   listeningTestParticipation: boolean;
   headphonesMakeAndModel?: string;
-  identifier?: string;
+  customIdentifier?: string;
 }
