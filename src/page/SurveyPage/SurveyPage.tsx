@@ -33,6 +33,7 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish, rememberProgr
     isAudioLoading,
     isPlaying,
     audioPlayed,
+    loadingProgress: audioLoadingProgress,
     resetAudioPlayed,
     handlePlayToggle,
     stop
@@ -57,7 +58,7 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish, rememberProgr
         nextQuestion();
       } else {
         handleFinish();
-      }      
+      }
     } else {
       setIsSmallTourRunning(true);
     }
@@ -73,9 +74,12 @@ const Survey: React.FC<Props> = ({ onConfirm, onComment, onFinish, rememberProgr
   return (
     <div className="page-container">
       <LoadingSpinner
-        label={getLoadingMessage()}
         isVisible={isLoading || isAudioLoading}
-      />
+        progress={isAudioLoading ? audioLoadingProgress : undefined}
+      >
+        {getLoadingMessage()}
+      </LoadingSpinner>
+
       <div className={`${styles.mainContainer} step-end`}>
         {isSmallTourRunning && (
           <Tour

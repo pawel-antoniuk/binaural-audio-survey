@@ -5,6 +5,7 @@ const API_URL = config.surveyService.baseUrl;
 
 export const apiClient: AxiosInstance = axios.create({
     baseURL: API_URL,
+    timeout: 30000,
     headers: {
         'Content-Type': 'application/json',
     },

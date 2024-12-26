@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import styles from './LoadingSpinner.module.css';
 
 interface LoadingSpinnerProps {
-  label: string;
+  children?: React.ReactNode;
   isVisible?: boolean;
+  progress?: number;
 }
 
-const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ 
-  label, 
-  isVisible = false 
+const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
+  children = null,
+  isVisible = false,
+  progress
 }) => {
   const [shouldRender, setShouldRender] = useState(isVisible);
 
@@ -18,7 +20,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
     } else {
       const timer = setTimeout(() => {
         setShouldRender(false);
-      }, 300); // Match this with your exit animation duration
+      }, 300);
       return () => clearTimeout(timer);
     }
   }, [isVisible]);
@@ -26,17 +28,32 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   if (!shouldRender) return null;
 
   return (
-    <div 
+    <div
       className={`${styles.loadingContainer} ${isVisible ? styles.enter : styles.exit}`}
       aria-hidden={!isVisible}
     >
       <div className={styles.content}>
-        <div className={styles.loadingSpinner}>
-          <div className={styles.spinnerCircle}></div>
-          <div className={styles.spinnerCircle}></div>
-          <div className={styles.spinnerCircle}></div>
-        </div>
-        <span className={styles.loadingLabel} role="status">{label}</span>
+        <span className={styles.loadingLabel} role="status">
+          {children}
+        </span>
+
+        {progress !== undefined ? (
+          <div className={styles.progressContainer}>
+            <div
+              className={styles.progressBar}
+              style={{ width: `${Math.min(Math.max(progress, 0), 100)}%` }}
+            >
+              <div className={styles.progressGlow}></div>
+            </div>
+            <span className={styles.progressText}>{Math.round(progress)}%</span>
+          </div>
+        ) : (
+          <div className={styles.loadingSpinner}>
+            <div className={styles.spinnerCircle}></div>
+            <div className={styles.spinnerCircle}></div>
+            <div className={styles.spinnerCircle}></div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ interface UseAudioControlReturn {
   isAudioLoading: boolean;
   isPlaying: boolean;
   audioPlayed: boolean;
+  loadingProgress: number;
   resetAudioPlayed: () => void;
   handlePlayToggle: () => void;
   stop: () => void;
@@ -27,8 +28,9 @@ export const useAudioControl = ({
   }, [questions]);
 
   const {
-    isLoading: isAudioLoading,
+    isLoading,
     isPlaying,
+    loadingProgress,
     play,
     pause,
     stop
@@ -74,9 +76,10 @@ export const useAudioControl = ({
   }, [isPlaying]);
 
   return {
-    isAudioLoading,
+    isAudioLoading: isLoading,
     isPlaying,
     audioPlayed,
+    loadingProgress,
     resetAudioPlayed,
     handlePlayToggle,
     stop

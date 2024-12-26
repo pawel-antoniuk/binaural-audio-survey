@@ -113,7 +113,7 @@
     },
     "tryIt": {
       "title": "Wypróbuj sam",
-      "content": "Poświęć chwilę na eksplorację i przetestowanie interfejsu. Klikaj i upewnij się, że wszystko działa zgodnie z oczekiwaniami. Gdy skończysz testowanie, kliknij przycisk Zakończ, aby zakończyć przewodnik."
+      "content": "Poświęć chwilę na eksplorację i przetestowanie interfejsu. Upewnij się, że wszystko działa zgodnie z oczekiwaniami. Gdy skończysz testowanie, kliknij przycisk Zakończ, aby zakończyć przewodnik."
     },
     "navigation": {
       "back": "Wstecz",
@@ -136,8 +136,8 @@
   },
   "survey": {
     "loading": {
-      "questions": "Ładowanie pytań...",
-      "recordings": "Ładowanie nagrań..."
+      "questions": "Wczytywanie pytań...",
+      "recordings": "Pobieranie nagrań..."
     }
   },
   "rangeSurvey": {

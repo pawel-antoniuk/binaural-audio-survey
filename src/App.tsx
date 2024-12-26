@@ -94,7 +94,9 @@ function App() {
 
   return (
     <>
-      <LoadingSpinner label='Loading translations...' isVisible={isTranslationLoading} />
+      <LoadingSpinner isVisible={isTranslationLoading}>
+        Loading translations...
+      </LoadingSpinner>
       <LanguageSwitcher />
       <div className='app-container'>
         <Routes location={location} key={location.pathname}>

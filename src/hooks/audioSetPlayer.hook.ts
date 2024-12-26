@@ -9,12 +9,20 @@ interface AudioHookState {
   isLooping: boolean;
 }
 
+interface CachedAudio {
+  buffer: AudioBuffer;
+  lastUsed: number;
+}
+
 interface UseAudioPlayerReturn extends AudioHookState {
   play: (index: number) => void;
   pause: () => void;
   stop: () => void;
   toggleLoop: () => void;
 }
+
+const MAX_DECODED_FILES = 3;
+const BATCH_SIZE = 3;
 
 export const useAudioSetPlayer = (
   getUrls: () => string[],
@@ -32,128 +40,126 @@ export const useAudioSetPlayer = (
   const audioContextRef = useRef<AudioContext | null>(null);
   const sourceNodesRef = useRef<AudioBufferSourceNode[]>([]);
   const gainNodesRef = useRef<GainNode[]>([]);
-  const audioBuffersRef = useRef<AudioBuffer[]>([]);
-  const audioDataRef = useRef<ArrayBuffer[]>([]);
+  const audioBufferCacheRef = useRef<Map<number, CachedAudio>>(new Map());
+  const audioDataRef = useRef<Map<number, ArrayBuffer>>(new Map());
   const startTimeRef = useRef<number>(0);
   const pausedAtRef = useRef<number | null>(null);
   const playedDurationRef = useRef<number>(0);
   const unmountingRef = useRef(false);
   const currentBufferDurationRef = useRef<number>(0);
 
-  // Separate function to fetch audio files
+  const loadBatch = useCallback(async (urls: string[], startIndex: number) => {
+    const batchPromises = urls.map(async (url, index) => {
+      try {
+        const response = await fetch(url);
+        const arrayBuffer = await response.arrayBuffer();
+        audioDataRef.current.set(startIndex + index, arrayBuffer);
+        return true;
+      } catch (error) {
+        console.error(`Error loading file ${startIndex + index}:`, error);
+        return false;
+      }
+    });
+
+    return Promise.all(batchPromises);
+  }, []);
+
   const preloadAudioFiles = useCallback(async () => {
     const urls = getUrls();
+    if (urls.length === 0) return;
+
     setState(prev => ({ ...prev, isLoading: true }));
     
     try {
-      const totalFiles = urls.length;
+      const totalBatches = Math.ceil(urls.length / BATCH_SIZE);
       let loadedFiles = 0;
 
-      const fetchPromises = urls.map(async (url) => {
-        const response = await fetch(url);
-        const arrayBuffer = await response.arrayBuffer();
-        loadedFiles++;
+      for (let batchIndex = 0; batchIndex < totalBatches; batchIndex++) {
+        const startIndex = batchIndex * BATCH_SIZE;
+        const batchUrls = urls.slice(startIndex, startIndex + BATCH_SIZE);
+        
+        const batchResults = await loadBatch(batchUrls, startIndex);
+        loadedFiles += batchResults.filter(Boolean).length;
+        
         setState(prev => ({
           ...prev,
-          loadingProgress: (loadedFiles / totalFiles) * 100
+          loadingProgress: (loadedFiles / urls.length) * 100
         }));
-        return arrayBuffer;
-      });
+      }
 
-      audioDataRef.current = await Promise.all(fetchPromises);
       setState(prev => ({ ...prev, isLoading: false }));
     } catch (error) {
-      console.error('Error preloading audio files:', error);
       setState(prev => ({
         ...prev,
         error: error instanceof Error ? error : new Error('Failed to load audio'),
         isLoading: false
       }));
     }
-  }, [getUrls]);
-
-  // Start preloading immediately
-  useEffect(() => {
-    preloadAudioFiles();
-  }, [preloadAudioFiles]);
+  }, [getUrls, loadBatch]);
 
   const ensureAudioContext = useCallback(async () => {
     if (!audioContextRef.current || audioContextRef.current.state === 'closed') {
       audioContextRef.current = new AudioContext();
     }
-
     if (audioContextRef.current.state === 'suspended') {
-      try {
-        await audioContextRef.current.resume();
-      } catch (error) {
-        console.error('Failed to resume AudioContext:', error);
-      }
+      await audioContextRef.current.resume();
     }
-
     return audioContextRef.current;
   }, []);
 
-  const decodeAudioData = useCallback(async () => {
-    const context = await ensureAudioContext();
-    
-    if (audioBuffersRef.current.length === 0 && audioDataRef.current.length > 0) {
-      try {
-        const bufferPromises = audioDataRef.current.map(data => 
-          context.decodeAudioData(data.slice(0))
-        );
-        audioBuffersRef.current = await Promise.all(bufferPromises);
-      } catch (error) {
-        console.error('Error decoding audio data:', error);
-        setState(prev => ({
-          ...prev,
-          error: error instanceof Error ? error : new Error('Failed to decode audio')
-        }));
+  const removeOldestCache = useCallback(() => {
+    if (audioBufferCacheRef.current.size < MAX_DECODED_FILES) return;
+
+    let oldestTime = Infinity;
+    let oldestIndex = -1;
+
+    audioBufferCacheRef.current.forEach((cache, index) => {
+      if (cache.lastUsed < oldestTime && index !== state.currentlyPlaying) {
+        oldestTime = cache.lastUsed;
+        oldestIndex = index;
       }
+    });
+
+    if (oldestIndex !== -1) {
+      audioBufferCacheRef.current.delete(oldestIndex);
     }
-  }, [ensureAudioContext]);
+  }, [state.currentlyPlaying]);
+
+  const getAudioBuffer = useCallback(async (index: number) => {
+    const context = await ensureAudioContext();
+
+    const cachedAudio = audioBufferCacheRef.current.get(index);
+    if (cachedAudio) {
+      cachedAudio.lastUsed = Date.now();
+      return cachedAudio.buffer;
+    }
+
+    const arrayBuffer = audioDataRef.current.get(index);
+    if (!arrayBuffer) {
+      throw new Error(`No audio data found for index ${index}`);
+    }
+
+    removeOldestCache();
+    
+    const buffer = await context.decodeAudioData(arrayBuffer.slice(0));
+    audioBufferCacheRef.current.set(index, {
+      buffer,
+      lastUsed: Date.now()
+    });
+
+    return buffer;
+  }, [ensureAudioContext, removeOldestCache]);
 
   const calculateLoopAdjustedTime = useCallback((rawTime: number, bufferDuration: number) => {
-    if (!state.isLooping) return rawTime;
-    return rawTime % bufferDuration;
+    return state.isLooping ? rawTime % bufferDuration : rawTime;
   }, [state.isLooping]);
-
-  const createSourceNode = useCallback((buffer: AudioBuffer, isLooping: boolean) => {
-    if (!audioContextRef.current || audioContextRef.current.state === 'closed') return null;
-
-    const sourceNode = audioContextRef.current.createBufferSource();
-    const gainNode = audioContextRef.current.createGain();
-
-    sourceNode.buffer = buffer;
-    sourceNode.loop = isLooping;
-
-    sourceNode.connect(gainNode);
-    gainNode.connect(audioContextRef.current.destination);
-
-    currentBufferDurationRef.current = buffer.duration;
-
-    if (isLooping) {
-      sourceNode.loopEnd = buffer.duration - crossfadeDuration;
-      sourceNode.addEventListener('ended', () => {
-        if (audioContextRef.current?.state !== 'closed') {
-          gainNode.gain.setValueCurveAtTime(
-            new Float32Array([1, 0]),
-            audioContextRef.current!.currentTime + buffer.duration - crossfadeDuration,
-            crossfadeDuration
-          );
-        }
-      });
-    }
-
-    return { sourceNode, gainNode };
-  }, [crossfadeDuration]);
 
   const play = useCallback(async (index: number) => {
     try {
-      await decodeAudioData();
+      const buffer = await getAudioBuffer(index);
+      const context = await ensureAudioContext();
       
-      if (!audioBuffersRef.current[index] || 
-          !audioContextRef.current || 
-          audioContextRef.current.state === 'closed') return;
+      if (!buffer || context.state === 'closed') return;
 
       const isResuming = state.currentlyPlaying === index && pausedAtRef.current !== null;
 
@@ -162,20 +168,31 @@ export const useAudioSetPlayer = (
         gainNodesRef.current[state.currentlyPlaying].disconnect();
       }
 
-      const nodes = createSourceNode(audioBuffersRef.current[index], state.isLooping);
-      if (!nodes) return;
+      const sourceNode = context.createBufferSource();
+      const gainNode = context.createGain();
 
-      const { sourceNode, gainNode } = nodes;
+      sourceNode.buffer = buffer;
+      sourceNode.loop = state.isLooping;
+
+      sourceNode.connect(gainNode);
+      gainNode.connect(context.destination);
+
+      currentBufferDurationRef.current = buffer.duration;
+
+      if (state.isLooping) {
+        sourceNode.loopEnd = buffer.duration - crossfadeDuration;
+      }
+
       sourceNodesRef.current[index] = sourceNode;
       gainNodesRef.current[index] = gainNode;
 
-      const now = audioContextRef.current.currentTime;
+      const now = context.currentTime;
       gainNode.gain.setValueAtTime(0, now);
       gainNode.gain.linearRampToValueAtTime(1, now + crossfadeDuration);
 
       let startOffset = 0;
       if (isResuming && pausedAtRef.current !== null) {
-        startOffset = calculateLoopAdjustedTime(pausedAtRef.current, currentBufferDurationRef.current);
+        startOffset = calculateLoopAdjustedTime(pausedAtRef.current, buffer.duration);
       }
 
       startTimeRef.current = now - startOffset;
@@ -187,15 +204,13 @@ export const useAudioSetPlayer = (
         isPlaying: true
       }));
     } catch (error) {
-      console.error('Error playing audio:', error);
       setState(prev => ({
         ...prev,
         error: error instanceof Error ? error : new Error('Failed to play audio')
       }));
     }
-  }, [state.currentlyPlaying, state.isLooping, createSourceNode, decodeAudioData, calculateLoopAdjustedTime]);
+  }, [state.isLooping, ensureAudioContext, getAudioBuffer, calculateLoopAdjustedTime]);
 
-  // Rest of the functions remain the same...
   const pause = useCallback(() => {
     if (!audioContextRef.current || 
         audioContextRef.current.state === 'closed' ||
@@ -263,15 +278,14 @@ export const useAudioSetPlayer = (
   }, []);
 
   useEffect(() => {
-    unmountingRef.current = false;
-    
+    preloadAudioFiles();
     return () => {
       unmountingRef.current = true;
-      if (audioContextRef.current && unmountingRef.current) {
+      if (audioContextRef.current) {
         audioContextRef.current.close();
       }
     };
-  }, []);
+  }, [preloadAudioFiles]);
 
   return {
     ...state,
