@@ -14,7 +14,7 @@ import { User } from './models/User';
 import useLocalStorage from './hooks/localStorage.hook';
 import { useComments } from './hooks/comment.hook';
 import AngularAnswer from './models/AngularAnswer';
-import { useAnswer } from './hooks/answer.hook';
+import { useAnswers } from './hooks/answers.hook';
 import FinishPage from './page/FinishPage/FinishPage';
 import CreditsPage from './page/CreditsPage/CreditsPage';
 import { useMessages } from './hooks/message.hook';
@@ -49,7 +49,7 @@ function App() {
   const { create: createUser } = useUser();
   const { create: createComment } = useComments();
   const { create: createMessage } = useMessages();
-  const { sendAnswer } = useAnswer();
+  const { create: sendAnswer } = useAnswers();
   const metadata = useUserMetadata();
   const [isTranslationLoading,] = useState(false);
   const { resetProgress } = useSurveyProgress({ rememberProgress: true });
@@ -78,7 +78,7 @@ function App() {
   };
 
   const handleConfirm = (questionId: string, audioFilename: string, answer: AngularAnswer) => {
-    sendAnswer('token', {
+    sendAnswer({
       userId: getUserId(),
       questionId: questionId,
       audioFilename: audioFilename,

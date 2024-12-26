@@ -54,7 +54,7 @@
     }
   },
   "headphoneTest": {
-    "title": "Teraz załóż słuchawki...",
+    "title": "Czas założyć słuchawki...",
     "instructions": {
       "main": "To badanie sprawdza, jak ludzie postrzegają pozycję i szerokość zespołów muzycznych w nagraniach <1>binauralnych</1>. Załóż słuchawki i użyj poniższych przycisków do odtwarzania fragmentów audio.",
       "binauralLink": "https://pl.wikipedia.org/wiki/Nagrywanie_binauralne",
